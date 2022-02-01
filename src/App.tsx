@@ -1,3 +1,4 @@
+import { useState } from "react";
 import "./App.css";
 import SAMPLE_DATA from "./sample-data.json";
 
@@ -34,8 +35,43 @@ const systemsByType: Record<SystemType, System[]> = SAMPLE_DATA.reduce<
 }, {});
 
 function App() {
+  const [layoutMode, setLayoutMode] = useState<"bySystemType" | "byDataUse">(
+    "bySystemType"
+  );
   return (
     <div className="App">
+      <header className="filters-and-layout">
+        <fieldset>
+          <legend>Layout mode</legend>
+          <label>
+            <input
+              type="radio"
+              name="layout-mode"
+              id="by-system-type"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setLayoutMode("bySystemType");
+                }
+              }}
+            />
+            Group by system type
+          </label>
+          <label>
+            <input
+              type="radio"
+              onChange={(e) => {
+                if (e.target.checked) {
+                  setLayoutMode("byDataUse");
+                }
+              }}
+              name="layout-mode"
+              id="by-data-use"
+            />
+            Group by data use
+          </label>
+        </fieldset>
+      </header>
+
       <div className="systems-grid">
         {/* TODO: Clarify if the types should be shown in any particular order */}
         {Object.keys(systemsByType).map((systemType) => {
