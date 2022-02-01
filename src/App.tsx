@@ -54,7 +54,6 @@ function App() {
                       {system.name}
                     </header>
                     <ul>
-                      {/* // TODO: See if we need to handle having two different nested category names, that have different hierarchies / ancestors? In that case, it's going to look here like we have a duplicate */}
                       {Array.from(dataCategories).map((category) => {
                         return <li>{category.split(".").slice(-1)[0]}</li>;
                       })}
