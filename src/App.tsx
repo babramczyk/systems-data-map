@@ -24,6 +24,8 @@ const systemsByType: Record<SystemType, System[]> = SAMPLE_DATA.reduce<
   if (isDupe) {
     return systemsByType;
   }
+  
+  // TODO: Does it make sense to group together Applications and Services?
 
   return {
     ...systemsByType,
