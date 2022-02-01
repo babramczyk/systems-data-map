@@ -58,6 +58,7 @@ function App() {
                         return <li>{category.split(".").slice(-1)[0]}</li>;
                       })}
                     </ul>
+                    {/* TODO: Show more data here, intelligently (maybe hidden at first) */}
                   </div>
                 );
               })}
