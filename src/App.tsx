@@ -40,7 +40,7 @@ function App() {
         {/* TODO: Clarify if the types should be shown in any particular order */}
         {Object.keys(systemsByType).map((systemType) => {
           return (
-            <div className="systems-list">
+            <div className="systems-list" key={systemType}>
               <h2>{systemType}</h2>
               {systemsByType[systemType].map((system) => {
                 const dataCategories = new Set(
@@ -49,13 +49,18 @@ function App() {
                   )
                 );
                 return (
-                  <div className="system-card">
+                  // TODO: See if we can actually use `fides_key` as a unique identifier
+                  <div className="system-card" key={system.fides_key}>
                     <header className="system-card__header">
                       {system.name}
                     </header>
                     <ul>
                       {Array.from(dataCategories).map((category) => {
-                        return <li>{category.split(".").slice(-1)[0]}</li>;
+                        return (
+                          <li key={category}>
+                            {category.split(".").slice(-1)[0]}
+                          </li>
+                        );
                       })}
                     </ul>
                     {/* TODO: Show more data here, intelligently (maybe hidden at first) */}
