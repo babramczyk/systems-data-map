@@ -35,6 +35,7 @@ function App() {
   return (
     <div className="App">
       <div className="systems-grid">
+        {/* TODO: Clarify if the types should be shown in any particular order */}
         {Object.keys(systemsByType).map((systemType) => {
           return (
             <div className="systems-list">
