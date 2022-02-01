@@ -34,16 +34,18 @@ const systemsByType: Record<SystemType, System[]> = SAMPLE_DATA.reduce<
 function App() {
   return (
     <div className="App">
-      {Object.keys(systemsByType).map((systemType) => {
-        return (
-          <>
-            <h2>{systemType}</h2>
-            {systemsByType[systemType].map((system) => {
-              return <div>{system.name}</div>;
-            })}
-          </>
-        );
-      })}
+      <div className="systems-grid">
+        {Object.keys(systemsByType).map((systemType) => {
+          return (
+            <div className="systems-list">
+              <h2>{systemType}</h2>
+              {systemsByType[systemType].map((system) => {
+                return <div className="system-card">{system.name}</div>;
+              })}
+            </div>
+          );
+        })}
+      </div>
     </div>
   );
 }
