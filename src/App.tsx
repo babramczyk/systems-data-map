@@ -1,5 +1,9 @@
 import { useState } from "react";
 import "./App.css";
+import {
+  DataUse,
+  DataUseFilters,
+} from "./components/DataUseFilters/DataUseFilters";
 import SAMPLE_DATA from "./sample-data.json";
 
 // TODO: Move these to a separate file?
@@ -38,9 +42,13 @@ function App() {
   const [layoutMode, setLayoutMode] = useState<"bySystemType" | "byDataUse">(
     "bySystemType"
   );
+  const [dataUseFilters, setDataUseFilters] = useState<DataUse[]>([]);
+
   return (
     <div className="App">
       <header className="filters-and-layout">
+        <DataUseFilters onChange={(dataUses) => setDataUseFilters(dataUses)} />
+
         <fieldset>
           <legend>Layout mode</legend>
           <label>
@@ -79,6 +87,22 @@ function App() {
             <div className="systems-list" key={systemType}>
               <h2>{systemType}</h2>
               {systemsByType[systemType].map((system) => {
+                if (dataUseFilters.length) {
+                  const dataUses = system.privacy_declarations.map(
+                    ({ data_use }) => data_use
+                  );
+                  // TODO: Highlight the data categories that match the filtered data uses, and "gray out" the ones that don't. Maybe find a way to show which data use(s) the highlighted data categories match
+                  // TODO: Consider a more efficient way of accomplishing this (currently it's O(mn)). e.g. maybe we can do some of this work up front / in the background when the app originally loads, so that by the time the user is interacting, this filtering is more seamless
+                  const matchesDataUsesFilters = dataUses.some((dataUse) => {
+                    return dataUseFilters.some((filter) =>
+                      dataUse.startsWith(filter)
+                    );
+                  });
+                  if (!matchesDataUsesFilters) {
+                    return null;
+                  }
+                }
+
                 const dataCategories = new Set(
                   system.privacy_declarations.flatMap(
                     (declaration) => declaration.data_categories
