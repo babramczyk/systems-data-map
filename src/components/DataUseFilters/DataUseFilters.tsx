@@ -1,9 +1,7 @@
 import { DATA_USES as DATA_USES_COMPLETE } from "../../constants/data-uses";
+import "./DataUseFilters.css"
 
-export const dataUses = DATA_USES_COMPLETE.map(
-  ({ privacy_key }) => privacy_key
-);
-export type DataUse = typeof dataUses[number];
+export type DataUse = typeof DATA_USES_COMPLETE[number]["privacy_key"];
 
 export function DataUseFilters({
   onChange,
@@ -16,13 +14,29 @@ export function DataUseFilters({
       <label htmlFor="data-use-filter">Filter by data use</label>
       <select
         id="data-use-filter"
-        // TODO: See if there's a way where can avoid this type casting -- we know it'll be a `DataUse` based on the <option>s we render below, but TypeScript's JSX compiler isn't smart enough to piece that together
-        onChange={(e) => onChange([e.target.value as DataUse])}
+        multiple
+        onChange={(e) =>
+          onChange(
+            // TODO: See if there's a way where can avoid this type casting -- we know it'll be a `DataUse` based on the <option>s we render below, but TypeScript's JSX compiler isn't smart enough to piece that together
+            Array.from(e.target.selectedOptions).map(
+              ({ value }) => value
+            ) as DataUse[]
+          )
+        }
       >
-        <option value="">Select one...</option>
-        {dataUses.map((dataUse) => (
-          <option key={dataUse} value={dataUse}>
-            {dataUse}
+        {/* TODO: Add instructions / tooltip instructing how to select multiple on the user's OS. Or, change this to be more useful and visually meaningful (probably by using checkboxes) */}
+        <option value="" className="empty-filter-option">
+          Select one or more options...
+        </option>
+        {/* TODO: If we stick with a <select>, consider using <optgroup>s to visually separate / group options together, i.e. based on their oldest ancestor */}
+        {DATA_USES_COMPLETE.map((dataUse) => (
+          <option
+            key={dataUse.privacy_key}
+            value={dataUse.privacy_key}
+            // TODO: Consider pulling in something like Reach UI's tooltip, for more responsive and visually appealing tooltips here
+            title={dataUse.description}
+          >
+            {dataUse.name}
           </option>
         ))}
       </select>

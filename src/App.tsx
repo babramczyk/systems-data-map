@@ -93,6 +93,7 @@ function App() {
                   );
                   // TODO: Highlight the data categories that match the filtered data uses, and "gray out" the ones that don't. Maybe find a way to show which data use(s) the highlighted data categories match
                   // TODO: Consider a more efficient way of accomplishing this (currently it's O(mn)). e.g. maybe we can do some of this work up front / in the background when the app originally loads, so that by the time the user is interacting, this filtering is more seamless
+                  // TODO: Consider using the `parent` fields in our data uses to determine if a filter matches (instead of cruedly comparing the start of strings)
                   const matchesDataUsesFilters = dataUses.some((dataUse) => {
                     return dataUseFilters.some((filter) =>
                       dataUse.startsWith(filter)
