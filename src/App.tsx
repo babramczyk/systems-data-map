@@ -1,15 +1,15 @@
 import { useState } from "react";
 import "./App.css";
-import {
-  DataUse,
-  DataUseFilters,
-} from "./components/DataUseFilters/DataUseFilters";
+import { MultiSelect } from "./components/MultiSelect/MultiSelect";
+// TODO: Put all data in a directory somewhere, and make it consistent how they're respresented (i.e. json or a TS file)
 import SAMPLE_DATA from "./sample-data.json";
+import { DATA_USES } from "./constants/data-uses";
 
 // TODO: Move these to a separate file?
 type System = typeof SAMPLE_DATA[number];
 // TODO: Make this more explicit, with this assumption?
 type SystemType = System["system_type"];
+type DataUseKey = typeof DATA_USES[number]["privacy_key"];
 
 // TODO: This is here for now, so we don't do this calculation on every render. If we want the app to be dynamic (i.e. you can add systems after the app has loaded), we would have to put this inside the `App` component itself, with an eye on performance implications
 // TODO: Refactor this. It's extremely ugly and I hate it
@@ -42,12 +42,20 @@ function App() {
   const [layoutMode, setLayoutMode] = useState<"bySystemType" | "byDataUse">(
     "bySystemType"
   );
-  const [dataUseFilters, setDataUseFilters] = useState<DataUse[]>([]);
+  const [dataUseFilters, setDataUseFilters] = useState<DataUseKey[]>([]);
 
   return (
     <div className="App">
       <header className="filters-and-layout">
-        <DataUseFilters onChange={(dataUses) => setDataUseFilters(dataUses)} />
+        <MultiSelect
+          options={DATA_USES}
+          onChange={(dataUses) => setDataUseFilters(dataUses)}
+          getOptionValue={({ privacy_key }) => privacy_key}
+          getOptionDisplayValue={({ name }) => name}
+          getOptionDescription={({ description }) => description}
+          id="data-use-filter"
+          label="Filter by data use"
+        />
 
         <fieldset>
           <legend>Layout mode</legend>

@@ -151,4 +151,4 @@ export const DATA_USES = [
     description:
       "Training an AI system. Please note when this data use is specified, the method and degree to which a user may be directly identified in the resulting AI system should be appended.",
   },
-] as const;
+];
