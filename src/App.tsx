@@ -18,7 +18,20 @@ function App() {
     };
   }, {});
 
-  return <div className="App">{JSON.stringify(systemsByType, null, 2)}</div>;
+  return (
+    <div className="App">
+      {Object.keys(systemsByType).map((systemType) => {
+        return (
+          <>
+            <h2>{systemType}</h2>
+            {systemsByType[systemType].map((system) => {
+              return <div>{system.name}</div>;
+            })}
+          </>
+        );
+      })}
+    </div>
+  );
 }
 
 export default App;
