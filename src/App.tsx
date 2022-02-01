@@ -24,7 +24,7 @@ const systemsByType: Record<SystemType, System[]> = SAMPLE_DATA.reduce<
   if (isDupe) {
     return systemsByType;
   }
-  
+
   // TODO: Does it make sense to group together Applications and Services?
 
   return {
@@ -43,7 +43,24 @@ function App() {
             <div className="systems-list">
               <h2>{systemType}</h2>
               {systemsByType[systemType].map((system) => {
-                return <div className="system-card">{system.name}</div>;
+                const dataCategories = new Set(
+                  system.privacy_declarations.flatMap(
+                    (declaration) => declaration.data_categories
+                  )
+                );
+                return (
+                  <div className="system-card">
+                    <header className="system-card__header">
+                      {system.name}
+                    </header>
+                    <ul>
+                      {/* // TODO: See if we need to handle having two different nested category names, that have different hierarchies / ancestors? In that case, it's going to look here like we have a duplicate */}
+                      {Array.from(dataCategories).map((category) => {
+                        return <li>{category.split(".").slice(-1)[0]}</li>;
+                      })}
+                    </ul>
+                  </div>
+                );
               })}
             </div>
           );
