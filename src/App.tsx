@@ -4,12 +4,14 @@ import { MultiSelect } from "./components/MultiSelect/MultiSelect";
 // TODO: Put all data in a directory somewhere, and make it consistent how they're respresented (i.e. json or a TS file)
 import SAMPLE_DATA from "./sample-data.json";
 import { DATA_USES } from "./constants/data-uses";
+import { DATA_CATEGORIES } from "./constants/data-categories";
 
 // TODO: Move these to a separate file?
 type System = typeof SAMPLE_DATA[number];
 // TODO: Make this more explicit, with this assumption?
 type SystemType = System["system_type"];
 type DataUseKey = typeof DATA_USES[number]["privacy_key"];
+type DataCategoryKey = typeof DATA_CATEGORIES[number]["privacy_key"];
 
 // TODO: This is here for now, so we don't do this calculation on every render. If we want the app to be dynamic (i.e. you can add systems after the app has loaded), we would have to put this inside the `App` component itself, with an eye on performance implications
 // TODO: Refactor this. It's extremely ugly and I hate it
@@ -43,6 +45,9 @@ function App() {
     "bySystemType"
   );
   const [dataUseFilters, setDataUseFilters] = useState<DataUseKey[]>([]);
+  const [dataCategoryFilters, setDataCategoryFilters] = useState<
+    DataCategoryKey[]
+  >([]);
 
   return (
     <div className="App">
@@ -54,7 +59,18 @@ function App() {
           getOptionDisplayValue={({ name }) => name}
           getOptionDescription={({ description }) => description}
           id="data-use-filter"
-          label="Filter by data use"
+          label="Filter by data uses"
+        />
+        {/* TODO: You're better than this... */}
+        <br />
+        <MultiSelect
+          options={DATA_CATEGORIES}
+          onChange={(dataCategories) => setDataCategoryFilters(dataCategories)}
+          getOptionValue={({ privacy_key }) => privacy_key}
+          getOptionDisplayValue={({ name }) => name}
+          getOptionDescription={({ description }) => description}
+          id="data-category-filter"
+          label="Filter by data categories"
         />
 
         <fieldset>
@@ -95,6 +111,8 @@ function App() {
             <div className="systems-list" key={systemType}>
               <h2>{systemType}</h2>
               {systemsByType[systemType].map((system) => {
+                // TODO: See if we can combine some of the filtering logic here into something more abstract
+                
                 if (dataUseFilters.length) {
                   const dataUses = system.privacy_declarations.map(
                     ({ data_use }) => data_use
@@ -117,6 +135,22 @@ function App() {
                     (declaration) => declaration.data_categories
                   )
                 );
+                if (dataCategoryFilters.length) {
+                  // TODO: Highlight the data categories that match the filters, and "gray out" the ones that don't
+                  // TODO: Consider a more efficient way of accomplishing this (currently it's O(mn)). e.g. maybe we can do some of this work up front / in the background when the app originally loads, so that by the time the user is interacting, this filtering is more seamless
+                  // TODO: Consider using the `parent` fields in our data uses to determine if a filter matches (instead of cruedly comparing the start of strings)
+                  const matchesDataCategoryFilters = Array.from(
+                    dataCategories
+                  ).some((dataCategory) => {
+                    return dataCategoryFilters.some((filter) =>
+                      dataCategory.startsWith(filter)
+                    );
+                  });
+                  if (!matchesDataCategoryFilters) {
+                    return null;
+                  }
+                }
+
                 return (
                   // TODO: See if we can actually use `fides_key` as a unique identifier
                   <div className="system-card" key={system.fides_key}>
