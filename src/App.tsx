@@ -44,8 +44,6 @@ const systemsByDataUse = SAMPLE_DATA.reduce<
   return systemsByDataUse;
 }, {});
 
-console.dir(systemsByDataUse, `systemsByDataUse`);
-
 function App() {
   const [layoutMode, setLayoutMode] = useState<"bySystemType" | "byDataUse">(
     "bySystemType"
