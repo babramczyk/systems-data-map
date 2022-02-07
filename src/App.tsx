@@ -28,7 +28,6 @@ const systemsByType = SAMPLE_DATA.reduce<
   };
 }, {});
 
-// TODO: Consider performance implications for these more. Right now it doesn't matter too much, and at first blush I'm not sure how we could do this better, but maybe it's worth some more thought
 const systemsByDataUse = SAMPLE_DATA.reduce<
   Record<SystemType, Record<SystemIdentifier, System>>
 >((systemsByDataUse, system) => {
@@ -36,8 +35,10 @@ const systemsByDataUse = SAMPLE_DATA.reduce<
   const dataUses = system.privacy_declarations.map(({ data_use }) => data_use);
 
   dataUses.forEach((dataUse) => {
-    systemsByDataUse[dataUse] ??= {};
-    systemsByDataUse[dataUse][system.fides_key] = system;
+    systemsByDataUse[dataUse] = {
+      ...systemsByDataUse[dataUse],
+      [system.fides_key]: system,
+    };
   });
 
   return systemsByDataUse;
