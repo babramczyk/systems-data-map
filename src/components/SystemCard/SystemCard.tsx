@@ -8,11 +8,6 @@ export function SystemCard({
   system: System;
   highlightedDataUse?: DataUseKey;
 }) {
-  // const dataCategories = new Set(
-  //   system.privacy_declarations.flatMap(
-  //     (declaration) => declaration.data_categories
-  //   )
-  // );
   const dataCategories = system.privacy_declarations.reduce<
     Record<DataCategoryKey, boolean>
   >((dataCategories, declaration) => {
