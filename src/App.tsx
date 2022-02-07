@@ -1,8 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import { MultiSelect } from "./components/MultiSelect/MultiSelect";
-// TODO: Put all data in a directory somewhere, and make it consistent how they're respresented (i.e. json or a TS file)
-import SAMPLE_DATA from "./sample-data.json";
+import { SAMPLE_DATA } from "./constants/sample-data";
 import { DATA_USES } from "./constants/data-uses";
 import { DATA_CATEGORIES } from "./constants/data-categories";
 

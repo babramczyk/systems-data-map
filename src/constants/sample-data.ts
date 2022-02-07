@@ -1,4 +1,4 @@
-[
+export const SAMPLE_DATA = [
   {
     "description": "Storefront application to search for products, browse sales and promotions, review product information, etc.",
     "fides_key": "store_app",
