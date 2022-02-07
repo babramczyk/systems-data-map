@@ -17,7 +17,7 @@ export function SystemCard({
     Record<DataCategoryKey, boolean>
   >((dataCategories, declaration) => {
     declaration.data_categories.forEach((category) => {
-      dataCategories[category] ??= highlightedDataUse
+      dataCategories[category] ||= highlightedDataUse
         ? declaration.data_use === highlightedDataUse
         : true;
     });
