@@ -3,13 +3,13 @@ import "./App.css";
 import { MultiSelect } from "./components/MultiSelect/MultiSelect";
 import { SystemCard } from "./components/SystemCard/SystemCard";
 import { DATA_CATEGORIES } from "./constants/data-categories";
-import { DATA_USES } from "./constants/data-uses";
+import { dataUsesByPrivacyKey, DATA_USES } from "./constants/data-uses";
 import { SAMPLE_DATA } from "./constants/sample-data";
 import {
   DataCategoryKey,
   DataUseKey,
   System,
-  SystemIdentifier,
+  SystemKey,
   SystemType,
 } from "./constants/typings";
 
@@ -17,7 +17,7 @@ import {
 // TODO: Do we need / want to sort our systems in each list in any special or more useful way?
 
 const systemsByType = SAMPLE_DATA.reduce<
-  Record<SystemType, Record<SystemIdentifier, System>>
+  Record<SystemType, Record<SystemKey, System>>
 >((systemsByType, system) => {
   return {
     ...systemsByType,
@@ -29,7 +29,7 @@ const systemsByType = SAMPLE_DATA.reduce<
 }, {});
 
 const systemsByDataUse = SAMPLE_DATA.reduce<
-  Record<SystemType, Record<SystemIdentifier, System>>
+  Record<SystemType, Record<SystemKey, System>>
 >((systemsByDataUse, system) => {
   // TODO: Consider not making an extra variable for this. If we do this inline, would probably be more performant. But maybe at the cost of readability
   const dataUses = system.privacy_declarations.map(({ data_use }) => data_use);
@@ -172,7 +172,12 @@ function App() {
           : Object.keys(systemsByDataUse).map((dataUse) => {
               return (
                 <div>
-                  <h2>{dataUse}</h2>
+                  <header className="system-list__header">
+                    <h2 className="system-list__heading">
+                      {dataUsesByPrivacyKey[dataUse].name}
+                    </h2>
+                    <p className="system-list__subheading">{dataUse}</p>
+                  </header>
                   {Object.values(systemsByDataUse[dataUse]).map((system) => {
                     return (
                       <SystemCard system={system} key={system.fides_key} />

@@ -1,3 +1,5 @@
+import { DataUse } from "./typings";
+
 export const DATA_USES = [
   {
     privacy_key: "provide",
@@ -152,3 +154,14 @@ export const DATA_USES = [
       "Training an AI system. Please note when this data use is specified, the method and degree to which a user may be directly identified in the resulting AI system should be appended.",
   },
 ];
+
+// TODO: Remove this if not needed..?
+export const dataUsesByPrivacyKey = DATA_USES.reduce<
+  Record<DataUse["privacy_key"], DataUse>
+>(
+  (dataUsesByPrivacyKey, dataUse) => ({
+    ...dataUsesByPrivacyKey,
+    [dataUse.privacy_key]: dataUse,
+  }),
+  {}
+);

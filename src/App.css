@@ -11,6 +11,20 @@
   padding: 0.5rem;
 }
 
+.system-list__header {
+  margin-bottom: 2rem;
+}
+
+.system-list__heading {
+  margin-bottom: .5rem;
+}
+
+.system-list__subheading {
+  color: hsl(0, 0%, 50%);
+  font-style: italic;
+  margin-top: 0;
+}
+
 .system-card {
   border: 1px solid black;
   border-radius: 1rem;
