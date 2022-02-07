@@ -42,9 +42,6 @@ export function SystemCard({
               </li>
             );
           })}
-        {/* {system.privacy_declarations.map(({ data_use, data_categories }) => {
-          return <li key={category}>{category.split(".").slice(-1)[0]}</li>;
-        })} */}
       </ul>
       {/* TODO: Show more data here, intelligently (maybe hidden at first) */}
     </div>
