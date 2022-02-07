@@ -111,7 +111,13 @@ function App() {
       </header>
 
       {/* TODO: Do we need to consider dependencies not perfectly matching up right to left? At the very least, we probably want to make sure that we're not relying on the order in which our data is listed / the given system types are listed */}
-      <ArcherContainer lineStyle="curve" startMarker endMarker={false}>
+      <ArcherContainer
+        lineStyle="curve"
+        startMarker
+        endMarker={false}
+        // TODO: Brief investigation into if we can do this better. And/or consider moving the cards up. They might move up on their own if we ever add in some elevation that adds shadows _and_ z-indexes
+        svgContainerStyle={{ zIndex: -1 }}
+      >
         <div className="systems-grid">
           {layoutMode === "bySystemType"
             ? /* TODO: Clarify if the types should be shown in any particular order */
