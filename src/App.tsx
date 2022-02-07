@@ -12,6 +12,7 @@ import {
   SystemKey,
   SystemType,
 } from "./constants/typings";
+import { ArcherContainer, ArcherElement } from "react-archer";
 
 // TODO: These are here for now, so we don't do this calculation on every render. If we want the app to be dynamic (i.e. you can add systems after the app has loaded), we would have to put this inside the `App` component itself, with an eye on performance implications
 // TODO: Do we need / want to sort our systems in each list in any special or more useful way?
@@ -109,87 +110,135 @@ function App() {
         </fieldset>
       </header>
 
-      <div className="systems-grid">
-        {layoutMode === "bySystemType"
-          ? /* TODO: Clarify if the types should be shown in any particular order */
-            Object.keys(systemsByType).map((systemType) => {
-              return (
-                <div className="systems-list" key={systemType}>
-                  <h2>{systemType}</h2>
-                  {Object.values(systemsByType[systemType]).map((system) => {
-                    // TODO: See if we can combine some of the filtering logic here into something more abstract
+      {/* TODO: Do we need to consider dependencies not perfectly matching up right to left? At the very least, we probably want to make sure that we're not relying on the order in which our data is listed / the given system types are listed */}
+      <ArcherContainer lineStyle="curve" startMarker endMarker={false}>
+        <div className="systems-grid">
+          {layoutMode === "bySystemType"
+            ? /* TODO: Clarify if the types should be shown in any particular order */
+              Object.keys(systemsByType).map((systemType) => {
+                return (
+                  <div className="systems-list" key={systemType}>
+                    <h2>{systemType}</h2>
+                    {Object.values(systemsByType[systemType]).map((system) => {
+                      // TODO: See if we can combine some of the filtering logic here into something more abstract
 
-                    if (dataUseFilters.length) {
-                      // TODO: This logic is duplicated. We might want to make a util for it. Or, if this happens with other logic, maybe we even make a class for a System
-                      const dataUses = system.privacy_declarations.map(
-                        ({ data_use }) => data_use
-                      );
-                      // TODO: Highlight the data categories that match the filtered data uses, and "gray out" the ones that don't. Maybe find a way to show which data use(s) the highlighted data categories match
-                      // TODO: Consider a more efficient way of accomplishing this (currently it's O(mn)). e.g. maybe we can do some of this work up front / in the background when the app originally loads, so that by the time the user is interacting, this filtering is more seamless
-                      // TODO: Consider using the `parent` fields in our data uses to determine if a filter matches (instead of cruedly comparing the start of strings)
-                      const matchesDataUsesFilters = dataUses.some(
-                        (dataUse) => {
-                          return dataUseFilters.some((filter) =>
-                            dataUse.startsWith(filter)
-                          );
-                        }
-                      );
-                      if (!matchesDataUsesFilters) {
-                        return null;
-                      }
-                    }
-
-                    const dataCategories = new Set(
-                      system.privacy_declarations.flatMap(
-                        (declaration) => declaration.data_categories
-                      )
-                    );
-                    if (dataCategoryFilters.length) {
-                      // TODO: Highlight the data categories that match the filters, and "gray out" the ones that don't
-                      // TODO: Consider a more efficient way of accomplishing this (currently it's O(mn)). e.g. maybe we can do some of this work up front / in the background when the app originally loads, so that by the time the user is interacting, this filtering is more seamless
-                      // TODO: Consider using the `parent` fields in our data uses to determine if a filter matches (instead of cruedly comparing the start of strings)
-                      const matchesDataCategoryFilters = Array.from(
-                        dataCategories
-                      ).some((dataCategory) => {
-                        return dataCategoryFilters.some((filter) =>
-                          dataCategory.startsWith(filter)
+                      if (dataUseFilters.length) {
+                        // TODO: This logic is duplicated. We might want to make a util for it. Or, if this happens with other logic, maybe we even make a class for a System
+                        const dataUses = system.privacy_declarations.map(
+                          ({ data_use }) => data_use
                         );
-                      });
-                      if (!matchesDataCategoryFilters) {
-                        return null;
+                        // TODO: Highlight the data categories that match the filtered data uses, and "gray out" the ones that don't. Maybe find a way to show which data use(s) the highlighted data categories match
+                        // TODO: Consider a more efficient way of accomplishing this (currently it's O(mn)). e.g. maybe we can do some of this work up front / in the background when the app originally loads, so that by the time the user is interacting, this filtering is more seamless
+                        // TODO: Consider using the `parent` fields in our data uses to determine if a filter matches (instead of cruedly comparing the start of strings)
+                        const matchesDataUsesFilters = dataUses.some(
+                          (dataUse) => {
+                            return dataUseFilters.some((filter) =>
+                              dataUse.startsWith(filter)
+                            );
+                          }
+                        );
+                        if (!matchesDataUsesFilters) {
+                          return null;
+                        }
                       }
-                    }
 
-                    // TODO: Handle when a system has no privacy declarations? It looks a bit weird to have an empty card. Maybe good enough to just put some "No privacy declarations" text in there...
-                    return (
-                      <SystemCard system={system} key={system.fides_key} />
-                    );
-                  })}
-                </div>
-              );
-            })
-          : Object.keys(systemsByDataUse).map((dataUse) => {
-              return (
-                <div key={dataUse}>
-                  <header className="system-list__header">
-                    <h2 className="system-list__heading">
-                      {dataUsesByPrivacyKey[dataUse].name}
-                    </h2>
-                    <p className="system-list__subheading">{dataUse}</p>
-                  </header>
-                  {Object.values(systemsByDataUse[dataUse]).map((system) => {
-                    return (
-                      <SystemCard
-                        system={system}
-                        highlightedDataUse={dataUse}
-                        key={system.fides_key}
-                      />
-                    );
-                  })}
-                </div>
-              );
-            })}
-      </div>
+                      const dataCategories = new Set(
+                        system.privacy_declarations.flatMap(
+                          (declaration) => declaration.data_categories
+                        )
+                      );
+                      if (dataCategoryFilters.length) {
+                        // TODO: Highlight the data categories that match the filters, and "gray out" the ones that don't
+                        // TODO: Consider a more efficient way of accomplishing this (currently it's O(mn)). e.g. maybe we can do some of this work up front / in the background when the app originally loads, so that by the time the user is interacting, this filtering is more seamless
+                        // TODO: Consider using the `parent` fields in our data uses to determine if a filter matches (instead of cruedly comparing the start of strings)
+                        const matchesDataCategoryFilters = Array.from(
+                          dataCategories
+                        ).some((dataCategory) => {
+                          return dataCategoryFilters.some((filter) =>
+                            dataCategory.startsWith(filter)
+                          );
+                        });
+                        if (!matchesDataCategoryFilters) {
+                          return null;
+                        }
+                      }
+
+                      // TODO: Handle when a system has no privacy declarations? It looks a bit weird to have an empty card. Maybe good enough to just put some "No privacy declarations" text in there...
+                      console.dir(system.fides_key, `system.fides_key`);
+                      // console.dir(system.system_dependencies, `system.system_dependencies`)
+                      return (
+                        <ArcherElement
+                          key={system.fides_key}
+                          id={system.fides_key}
+                          relations={system.system_dependencies.map((dep) => ({
+                            targetId: dep,
+                            targetAnchor: "left",
+                            sourceAnchor: "right",
+                            // TODO: Remove (for debugging purposes)
+                            // label: (
+                            //   <div style={{ color: "limegreen" }}>
+                            //     {`Source: ${system.fides_key}; Dep: ${dep}`}
+                            //   </div>
+                            // ),
+                          }))}
+                        >
+                          <div>
+                            <SystemCard system={system} />
+                          </div>
+                        </ArcherElement>
+                      );
+                    })}
+                  </div>
+                );
+              })
+            : Object.keys(systemsByDataUse).map((dataUse) => {
+                return (
+                  <div key={dataUse}>
+                    <header className="system-list__header">
+                      <h2 className="system-list__heading">
+                        {dataUsesByPrivacyKey[dataUse].name}
+                      </h2>
+                      <p className="system-list__subheading">{dataUse}</p>
+                    </header>
+                    {Object.values(systemsByDataUse[dataUse]).map((system) => {
+                      return (
+                        // {
+                        //   targetId: string,
+                        //   targetAnchor: 'top' | 'bottom' | 'left' | 'right' | 'middle',
+                        //   sourceAnchor: 'top' | 'bottom' | 'left' | 'right' | 'middle',
+                        //   label: React.Node,
+                        //   order?: number, // higher order means arrow will be drawn on top of the others
+                        //   style: ArcherStyle,
+                        // }
+
+                        // TODO: Fix a problem here where we're not showing some because they have no usages. *Maybe we don't even show relationships in this case?*
+                        // <ArcherElement
+                        //   id={system.fides_key}
+                        //   relations={system.system_dependencies.map((dep) => ({
+                        //     targetId: dep,
+                        //     targetAnchor: "middle",
+                        //     sourceAnchor: "middle",
+                        //     label: (
+                        //       <div style={{ color: "limegreen" }}>
+                        //         {`Source: ${system.fides_key}; Dep: ${dep}`}
+                        //       </div>
+                        //     ),
+                        //   }))}
+                        // >
+                        <div>
+                          <SystemCard
+                            system={system}
+                            highlightedDataUse={dataUse}
+                            key={system.fides_key}
+                          />
+                        </div>
+                      );
+                    })}
+                  </div>
+                );
+              })}
+        </div>
+      </ArcherContainer>
     </div>
   );
 }
