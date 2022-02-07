@@ -22,7 +22,9 @@ export function SystemCard({
 
   return (
     <div className="system-card" key={system.fides_key}>
-      <header className="system-card__header">{system.name}</header>
+      <header className="system-card__header">
+        <h3 className="system-card__heading">{system.name}</h3>
+      </header>
       <ul>
         {Object.keys(dataCategories)
           // Sort "unhighlighted" data uses to the bottom

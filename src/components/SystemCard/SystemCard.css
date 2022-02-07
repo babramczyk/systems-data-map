@@ -1,9 +1,20 @@
 .system-card {
   border: 1px solid black;
   border-radius: 1rem;
-  padding: 1rem;
   margin-bottom: 1rem;
   width: 16rem;
+  overflow: hidden;
+}
+
+.system-card__header {
+  text-align: center;
+  background: black;
+  color: white;
+  padding: 1rem .5rem;
+}
+
+.system-card__heading {
+  margin: 0;
 }
 
 .system-card__data-category:not(.system-card__data-category--highlighted) {
