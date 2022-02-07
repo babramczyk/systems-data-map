@@ -39,9 +39,9 @@ export function SystemCard({
                     : "system-card__data-category"
                 }
               >
-                {/* TODO: Clean this up visually */}
                 <p>{dataCategoriesByPrivacyKey[category].name}</p>
-                <p>{category.split(".").slice(-1)[0]}</p>
+                {/* TODO: Show this in some way. i.e. a tooltip that shows it on hover, or show this `code` block and make it a bit more subtle */}
+                {/* <code>{category.split(".").slice(-1)[0]}</code> */}
               </li>
             );
           })}
