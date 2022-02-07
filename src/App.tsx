@@ -160,6 +160,7 @@ function App() {
                       }
                     }
 
+                    // TODO: Handle when a system has no privacy declarations? It looks a bit weird to have an empty card. Maybe good enough to just put some "No privacy declarations" text in there...
                     return (
                       <SystemCard system={system} key={system.fides_key} />
                     );
