@@ -28,22 +28,25 @@ export function SystemCard({
     <div className="system-card" key={system.fides_key}>
       <header className="system-card__header">{system.name}</header>
       <ul>
-        {Object.keys(dataCategories).map((category) => {
-          const isHighlighted = dataCategories[category];
-          return (
-            <li
-              key={category}
-              // TODO: At a certain point, bring in the classnames npm package?
-              className={
-                isHighlighted
-                  ? "system-card__data-category--highlighted"
-                  : "system-card__data-category"
-              }
-            >
-              {category.split(".").slice(-1)[0]}
-            </li>
-          );
-        })}
+        {Object.keys(dataCategories)
+          // Sort "unhighlighted" data uses to the bottom
+          .sort((catA) => (dataCategories[catA] ? -1 : 1))
+          .map((category) => {
+            const isHighlighted = dataCategories[category];
+            return (
+              <li
+                key={category}
+                // TODO: At a certain point, bring in the classnames npm package?
+                className={
+                  isHighlighted
+                    ? "system-card__data-category--highlighted"
+                    : "system-card__data-category"
+                }
+              >
+                {category.split(".").slice(-1)[0]}
+              </li>
+            );
+          })}
         {/* {system.privacy_declarations.map(({ data_use, data_categories }) => {
           return <li key={category}>{category.split(".").slice(-1)[0]}</li>;
         })} */}
