@@ -14,8 +14,9 @@ import {
 } from "./constants/typings";
 
 // TODO: These are here for now, so we don't do this calculation on every render. If we want the app to be dynamic (i.e. you can add systems after the app has loaded), we would have to put this inside the `App` component itself, with an eye on performance implications
-// TODO: Refactor this. It's extremely ugly and I hate it
+// TODO: Do we need / want to sort our systems in each list in any special or more useful way?
 
+// TODO: Refactor this. It's extremely ugly and I hate it
 const systemsByType = SAMPLE_DATA.reduce<Record<SystemType, System[]>>(
   (systemsByType, system) => {
     const existingSystemsForType: System[] =
@@ -182,7 +183,14 @@ function App() {
               );
             })
           : Object.keys(systemsByDataUse).map((dataUse) => {
-              return <h2>{dataUse}</h2>;
+              return (
+                <div>
+                  <h2>{dataUse}</h2>
+                  {Object.values(systemsByDataUse[dataUse]).map(system => {
+                    return <SystemCard system={system} key={system.fides_key} />
+                  })}
+                </div>
+              );
             })}
       </div>
     </div>
