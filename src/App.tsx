@@ -171,7 +171,7 @@ function App() {
             })
           : Object.keys(systemsByDataUse).map((dataUse) => {
               return (
-                <div>
+                <div key={dataUse}>
                   <header className="system-list__header">
                     <h2 className="system-list__heading">
                       {dataUsesByPrivacyKey[dataUse].name}
@@ -180,7 +180,11 @@ function App() {
                   </header>
                   {Object.values(systemsByDataUse[dataUse]).map((system) => {
                     return (
-                      <SystemCard system={system} key={system.fides_key} />
+                      <SystemCard
+                        system={system}
+                        highlightedDataUse={dataUse}
+                        key={system.fides_key}
+                      />
                     );
                   })}
                 </div>
