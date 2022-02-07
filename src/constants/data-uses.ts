@@ -155,7 +155,6 @@ export const DATA_USES = [
   },
 ];
 
-// TODO: Remove this if not needed..?
 export const dataUsesByPrivacyKey = DATA_USES.reduce<
   Record<DataUse["privacy_key"], DataUse>
 >(

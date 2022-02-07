@@ -1,3 +1,4 @@
+import { dataCategoriesByPrivacyKey } from "../../constants/data-categories";
 import { DataCategoryKey, DataUseKey, System } from "../../constants/typings";
 import "./SystemCard.css";
 
@@ -38,7 +39,9 @@ export function SystemCard({
                     : "system-card__data-category"
                 }
               >
-                {category.split(".").slice(-1)[0]}
+                {/* TODO: Clean this up visually */}
+                <p>{dataCategoriesByPrivacyKey[category].name}</p>
+                <p>{category.split(".").slice(-1)[0]}</p>
               </li>
             );
           })}

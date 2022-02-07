@@ -1,3 +1,5 @@
+import { DataCategory, DataCategoryKey } from "./typings";
+
 export const DATA_CATEGORIES = [
   {
     privacy_key: "account",
@@ -473,3 +475,13 @@ export const DATA_CATEGORIES = [
       "Data provided or created directly by a user that is not identifiable.",
   },
 ];
+
+export const dataCategoriesByPrivacyKey = DATA_CATEGORIES.reduce<
+  Record<DataCategory["privacy_key"], DataCategory>
+>(
+  (dataCategoriesByPrivacyKey, category) => ({
+    ...dataCategoriesByPrivacyKey,
+    [category.privacy_key]: category,
+  }),
+  {}
+);
