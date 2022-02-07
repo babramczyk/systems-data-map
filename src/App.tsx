@@ -16,32 +16,17 @@ import {
 // TODO: These are here for now, so we don't do this calculation on every render. If we want the app to be dynamic (i.e. you can add systems after the app has loaded), we would have to put this inside the `App` component itself, with an eye on performance implications
 // TODO: Do we need / want to sort our systems in each list in any special or more useful way?
 
-// TODO: Refactor this. It's extremely ugly and I hate it
-const systemsByType = SAMPLE_DATA.reduce<Record<SystemType, System[]>>(
-  (systemsByType, system) => {
-    const existingSystemsForType: System[] =
-      systemsByType[system.system_type] ?? [];
-
-    // TODO: Make this a map or a set. So we don't have to detect dupes ourselves
-    const isDupe = existingSystemsForType.some(
-      (currSystem) =>
-        // TODO: I need to clarify this, but I'm not actually sure what the `fides_key` is, and if we can use it as a defacto primary key. For now, we're just playing it safe and comparing that and the `name` for uniqueness
-        currSystem.fides_key === system.fides_key &&
-        currSystem.name === system.name
-    );
-    if (isDupe) {
-      return systemsByType;
-    }
-
-    // TODO: Does it make sense to group together Applications and Services?
-
-    return {
-      ...systemsByType,
-      [system.system_type]: [...existingSystemsForType, system],
-    };
-  },
-  {}
-);
+const systemsByType = SAMPLE_DATA.reduce<
+  Record<SystemType, Record<SystemIdentifier, System>>
+>((systemsByType, system) => {
+  return {
+    ...systemsByType,
+    [system.system_type]: {
+      ...systemsByType[system.system_type],
+      [system.fides_key]: system,
+    },
+  };
+}, {});
 
 // TODO: Consider performance implications for these more. Right now it doesn't matter too much, and at first blush I'm not sure how we could do this better, but maybe it's worth some more thought
 const systemsByDataUse = SAMPLE_DATA.reduce<
@@ -131,7 +116,7 @@ function App() {
               return (
                 <div className="systems-list" key={systemType}>
                   <h2>{systemType}</h2>
-                  {systemsByType[systemType].map((system) => {
+                  {Object.values(systemsByType[systemType]).map((system) => {
                     // TODO: See if we can combine some of the filtering logic here into something more abstract
 
                     if (dataUseFilters.length) {
@@ -186,8 +171,10 @@ function App() {
               return (
                 <div>
                   <h2>{dataUse}</h2>
-                  {Object.values(systemsByDataUse[dataUse]).map(system => {
-                    return <SystemCard system={system} key={system.fides_key} />
+                  {Object.values(systemsByDataUse[dataUse]).map((system) => {
+                    return (
+                      <SystemCard system={system} key={system.fides_key} />
+                    );
                   })}
                 </div>
               );
