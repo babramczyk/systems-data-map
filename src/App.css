@@ -5,6 +5,7 @@
 .systems-grid {
   display: flex;
   gap: 2rem;
+  overflow-x: auto;
 }
 
 .system-list {
