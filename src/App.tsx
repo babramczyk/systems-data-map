@@ -9,17 +9,19 @@ import {
   DataCategoryKey,
   DataUseKey,
   System,
+  SystemIdentifier,
   SystemType,
 } from "./constants/typings";
 
-// TODO: This is here for now, so we don't do this calculation on every render. If we want the app to be dynamic (i.e. you can add systems after the app has loaded), we would have to put this inside the `App` component itself, with an eye on performance implications
+// TODO: These are here for now, so we don't do this calculation on every render. If we want the app to be dynamic (i.e. you can add systems after the app has loaded), we would have to put this inside the `App` component itself, with an eye on performance implications
 // TODO: Refactor this. It's extremely ugly and I hate it
+
 const systemsByType = SAMPLE_DATA.reduce<Record<SystemType, System[]>>(
   (systemsByType, system) => {
     const existingSystemsForType: System[] =
       systemsByType[system.system_type] ?? [];
 
-    // TODO: Consider a more performant way of removing dupes?
+    // TODO: Make this a map or a set. So we don't have to detect dupes ourselves
     const isDupe = existingSystemsForType.some(
       (currSystem) =>
         // TODO: I need to clarify this, but I'm not actually sure what the `fides_key` is, and if we can use it as a defacto primary key. For now, we're just playing it safe and comparing that and the `name` for uniqueness
@@ -39,6 +41,23 @@ const systemsByType = SAMPLE_DATA.reduce<Record<SystemType, System[]>>(
   },
   {}
 );
+
+// TODO: Consider performance implications for these more. Right now it doesn't matter too much, and at first blush I'm not sure how we could do this better, but maybe it's worth some more thought
+const systemsByDataUse = SAMPLE_DATA.reduce<
+  Record<SystemType, Record<SystemIdentifier, System>>
+>((systemsByDataUse, system) => {
+  // TODO: Consider not making an extra variable for this. If we do this inline, would probably be more performant. But maybe at the cost of readability
+  const dataUses = system.privacy_declarations.map(({ data_use }) => data_use);
+
+  dataUses.forEach((dataUse) => {
+    systemsByDataUse[dataUse] ??= {};
+    systemsByDataUse[dataUse][system.fides_key] = system;
+  });
+
+  return systemsByDataUse;
+}, {});
+
+console.dir(systemsByDataUse, `systemsByDataUse`);
 
 function App() {
   const [layoutMode, setLayoutMode] = useState<"bySystemType" | "byDataUse">(
@@ -105,57 +124,66 @@ function App() {
       </header>
 
       <div className="systems-grid">
-        {/* TODO: Clarify if the types should be shown in any particular order */}
-        {Object.keys(systemsByType).map((systemType) => {
-          return (
-            <div className="systems-list" key={systemType}>
-              <h2>{systemType}</h2>
-              {systemsByType[systemType].map((system) => {
-                // TODO: See if we can combine some of the filtering logic here into something more abstract
+        {layoutMode === "bySystemType"
+          ? /* TODO: Clarify if the types should be shown in any particular order */
+            Object.keys(systemsByType).map((systemType) => {
+              return (
+                <div className="systems-list" key={systemType}>
+                  <h2>{systemType}</h2>
+                  {systemsByType[systemType].map((system) => {
+                    // TODO: See if we can combine some of the filtering logic here into something more abstract
 
-                if (dataUseFilters.length) {
-                  const dataUses = system.privacy_declarations.map(
-                    ({ data_use }) => data_use
-                  );
-                  // TODO: Highlight the data categories that match the filtered data uses, and "gray out" the ones that don't. Maybe find a way to show which data use(s) the highlighted data categories match
-                  // TODO: Consider a more efficient way of accomplishing this (currently it's O(mn)). e.g. maybe we can do some of this work up front / in the background when the app originally loads, so that by the time the user is interacting, this filtering is more seamless
-                  // TODO: Consider using the `parent` fields in our data uses to determine if a filter matches (instead of cruedly comparing the start of strings)
-                  const matchesDataUsesFilters = dataUses.some((dataUse) => {
-                    return dataUseFilters.some((filter) =>
-                      dataUse.startsWith(filter)
+                    if (dataUseFilters.length) {
+                      // TODO: This logic is duplicated. We might want to make a util for it. Or, if this happens with other logic, maybe we even make a class for a System
+                      const dataUses = system.privacy_declarations.map(
+                        ({ data_use }) => data_use
+                      );
+                      // TODO: Highlight the data categories that match the filtered data uses, and "gray out" the ones that don't. Maybe find a way to show which data use(s) the highlighted data categories match
+                      // TODO: Consider a more efficient way of accomplishing this (currently it's O(mn)). e.g. maybe we can do some of this work up front / in the background when the app originally loads, so that by the time the user is interacting, this filtering is more seamless
+                      // TODO: Consider using the `parent` fields in our data uses to determine if a filter matches (instead of cruedly comparing the start of strings)
+                      const matchesDataUsesFilters = dataUses.some(
+                        (dataUse) => {
+                          return dataUseFilters.some((filter) =>
+                            dataUse.startsWith(filter)
+                          );
+                        }
+                      );
+                      if (!matchesDataUsesFilters) {
+                        return null;
+                      }
+                    }
+
+                    const dataCategories = new Set(
+                      system.privacy_declarations.flatMap(
+                        (declaration) => declaration.data_categories
+                      )
                     );
-                  });
-                  if (!matchesDataUsesFilters) {
-                    return null;
-                  }
-                }
+                    if (dataCategoryFilters.length) {
+                      // TODO: Highlight the data categories that match the filters, and "gray out" the ones that don't
+                      // TODO: Consider a more efficient way of accomplishing this (currently it's O(mn)). e.g. maybe we can do some of this work up front / in the background when the app originally loads, so that by the time the user is interacting, this filtering is more seamless
+                      // TODO: Consider using the `parent` fields in our data uses to determine if a filter matches (instead of cruedly comparing the start of strings)
+                      const matchesDataCategoryFilters = Array.from(
+                        dataCategories
+                      ).some((dataCategory) => {
+                        return dataCategoryFilters.some((filter) =>
+                          dataCategory.startsWith(filter)
+                        );
+                      });
+                      if (!matchesDataCategoryFilters) {
+                        return null;
+                      }
+                    }
 
-                const dataCategories = new Set(
-                  system.privacy_declarations.flatMap(
-                    (declaration) => declaration.data_categories
-                  )
-                );
-                if (dataCategoryFilters.length) {
-                  // TODO: Highlight the data categories that match the filters, and "gray out" the ones that don't
-                  // TODO: Consider a more efficient way of accomplishing this (currently it's O(mn)). e.g. maybe we can do some of this work up front / in the background when the app originally loads, so that by the time the user is interacting, this filtering is more seamless
-                  // TODO: Consider using the `parent` fields in our data uses to determine if a filter matches (instead of cruedly comparing the start of strings)
-                  const matchesDataCategoryFilters = Array.from(
-                    dataCategories
-                  ).some((dataCategory) => {
-                    return dataCategoryFilters.some((filter) =>
-                      dataCategory.startsWith(filter)
+                    return (
+                      <SystemCard system={system} key={system.fides_key} />
                     );
-                  });
-                  if (!matchesDataCategoryFilters) {
-                    return null;
-                  }
-                }
-
-                return <SystemCard system={system} />;
-              })}
-            </div>
-          );
-        })}
+                  })}
+                </div>
+              );
+            })
+          : Object.keys(systemsByDataUse).map((dataUse) => {
+              return <h2>{dataUse}</h2>;
+            })}
       </div>
     </div>
   );
