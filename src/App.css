@@ -25,11 +25,3 @@
   font-style: italic;
   margin-top: 0;
 }
-
-.system-card {
-  border: 1px solid black;
-  border-radius: 1rem;
-  padding: 1rem;
-  margin-bottom: 1rem;
-  width: 16rem;
-}
