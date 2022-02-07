@@ -1,5 +1,5 @@
 import { DataCategoryKey, DataUseKey, System } from "../../constants/typings";
-import "./SystemCard.css"
+import "./SystemCard.css";
 
 export function SystemCard({
   system,
@@ -35,7 +35,9 @@ export function SystemCard({
               key={category}
               // TODO: At a certain point, bring in the classnames npm package?
               className={
-                isHighlighted ? "system-card__data-category--highlighted" : ""
+                isHighlighted
+                  ? "system-card__data-category--highlighted"
+                  : "system-card__data-category"
               }
             >
               {category.split(".").slice(-1)[0]}

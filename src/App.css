@@ -20,6 +20,7 @@
 }
 
 .system-list__subheading {
+  /* TODO: Make a defined color palette and file for it. CSS variables for now, maybe a full-fledged CSS system later (i.e. Tailwind) */
   color: hsl(0, 0%, 50%);
   font-style: italic;
   margin-top: 0;
