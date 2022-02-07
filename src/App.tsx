@@ -86,6 +86,7 @@ function App() {
               type="radio"
               name="layout-mode"
               id="by-system-type"
+              defaultChecked
               onChange={(e) => {
                 if (e.target.checked) {
                   setLayoutMode("bySystemType");
