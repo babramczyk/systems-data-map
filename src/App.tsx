@@ -1,6 +1,7 @@
 import { useState } from "react";
 import "./App.css";
 import { MultiSelect } from "./components/MultiSelect/MultiSelect";
+import { SystemCard } from "./components/SystemCard/SystemCard";
 import { DATA_CATEGORIES } from "./constants/data-categories";
 import { DATA_USES } from "./constants/data-uses";
 import { SAMPLE_DATA } from "./constants/sample-data";
@@ -150,24 +151,7 @@ function App() {
                   }
                 }
 
-                return (
-                  // TODO: See if we can actually use `fides_key` as a unique identifier
-                  <div className="system-card" key={system.fides_key}>
-                    <header className="system-card__header">
-                      {system.name}
-                    </header>
-                    <ul>
-                      {Array.from(dataCategories).map((category) => {
-                        return (
-                          <li key={category}>
-                            {category.split(".").slice(-1)[0]}
-                          </li>
-                        );
-                      })}
-                    </ul>
-                    {/* TODO: Show more data here, intelligently (maybe hidden at first) */}
-                  </div>
-                );
+                return <SystemCard system={system} />;
               })}
             </div>
           );
