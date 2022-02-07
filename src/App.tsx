@@ -1,16 +1,15 @@
 import { useState } from "react";
 import "./App.css";
 import { MultiSelect } from "./components/MultiSelect/MultiSelect";
-import { SAMPLE_DATA } from "./constants/sample-data";
-import { DATA_USES } from "./constants/data-uses";
 import { DATA_CATEGORIES } from "./constants/data-categories";
-
-// TODO: Move these to a separate file?
-type System = typeof SAMPLE_DATA[number];
-// TODO: Make this more explicit, with this assumption?
-type SystemType = System["system_type"];
-type DataUseKey = typeof DATA_USES[number]["privacy_key"];
-type DataCategoryKey = typeof DATA_CATEGORIES[number]["privacy_key"];
+import { DATA_USES } from "./constants/data-uses";
+import { SAMPLE_DATA } from "./constants/sample-data";
+import {
+  DataCategoryKey,
+  DataUseKey,
+  System,
+  SystemType,
+} from "./constants/typings";
 
 // TODO: This is here for now, so we don't do this calculation on every render. If we want the app to be dynamic (i.e. you can add systems after the app has loaded), we would have to put this inside the `App` component itself, with an eye on performance implications
 // TODO: Refactor this. It's extremely ugly and I hate it
@@ -111,7 +110,7 @@ function App() {
               <h2>{systemType}</h2>
               {systemsByType[systemType].map((system) => {
                 // TODO: See if we can combine some of the filtering logic here into something more abstract
-                
+
                 if (dataUseFilters.length) {
                   const dataUses = system.privacy_declarations.map(
                     ({ data_use }) => data_use
