@@ -205,40 +205,15 @@ function App() {
                       </h2>
                       <p className="system-list__subheading">{dataUse}</p>
                     </header>
-                    {Object.values(systemsByDataUse[dataUse]).map((system) => {
-                      return (
-                        // {
-                        //   targetId: string,
-                        //   targetAnchor: 'top' | 'bottom' | 'left' | 'right' | 'middle',
-                        //   sourceAnchor: 'top' | 'bottom' | 'left' | 'right' | 'middle',
-                        //   label: React.Node,
-                        //   order?: number, // higher order means arrow will be drawn on top of the others
-                        //   style: ArcherStyle,
-                        // }
-
-                        // TODO: Fix a problem here where we're not showing some because they have no usages. *Maybe we don't even show relationships in this case?*
-                        // <ArcherElement
-                        //   id={system.fides_key}
-                        //   relations={system.system_dependencies.map((dep) => ({
-                        //     targetId: dep,
-                        //     targetAnchor: "middle",
-                        //     sourceAnchor: "middle",
-                        //     label: (
-                        //       <div style={{ color: "limegreen" }}>
-                        //         {`Source: ${system.fides_key}; Dep: ${dep}`}
-                        //       </div>
-                        //     ),
-                        //   }))}
-                        // >
-                        <div>
-                          <SystemCard
-                            system={system}
-                            highlightedDataUse={dataUse}
-                            key={system.fides_key}
-                          />
-                        </div>
-                      );
-                    })}
+                    {Object.values(systemsByDataUse[dataUse]).map((system) => (
+                      <div>
+                        <SystemCard
+                          system={system}
+                          highlightedDataUse={dataUse}
+                          key={system.fides_key}
+                        />
+                      </div>
+                    ))}
                   </div>
                 );
               })}
