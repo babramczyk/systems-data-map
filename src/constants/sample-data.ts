@@ -1,260 +1,278 @@
+import { System } from "./typings";
+
 export const SAMPLE_DATA = [
   {
-    "description": "Storefront application to search for products, browse sales and promotions, review product information, etc.",
-    "fides_key": "store_app",
-    "name": "Example.com Online Storefront",
-    "privacy_declarations": [
+    description:
+      "Storefront application to search for products, browse sales and promotions, review product information, etc.",
+    fides_key: "store_app",
+    name: "Example.com Online Storefront",
+    privacy_declarations: [
       {
-        "data_categories": [
+        data_categories: [
           "user.derived.identifiable.device.cookie_id",
           "user.derived.identifiable.device.ip_address",
-          "user.derived.identifiable.location"
+          "user.derived.identifiable.location",
         ],
-        "data_subjects": ["customer"],
-        "data_use": "advertising.third_party",
-        "name": "Online Advertising"
+        data_subjects: ["customer"],
+        data_use: "advertising.third_party",
+        name: "Online Advertising",
       },
       {
-        "data_categories": ["user.provided.identifiable.contact.email"],
-        "data_subjects": ["customer"],
-        "data_use": "advertising.first_party",
-        "name": "Email Marketing"
+        data_categories: ["user.provided.identifiable.contact.email"],
+        data_subjects: ["customer"],
+        data_use: "advertising.first_party",
+        name: "Email Marketing",
       },
       {
-        "data_categories": ["user.derived.identifiable.device.cookie_id"],
-        "data_subjects": ["customer"],
-        "data_use": "improve.system",
-        "name": "Product Analytics"
-      }
+        data_categories: ["user.derived.identifiable.device.cookie_id"],
+        data_subjects: ["customer"],
+        data_use: "improve.system",
+        name: "Product Analytics",
+      },
     ],
-    "system_dependencies": [
+    system_dependencies: [
       "app_database",
       "search_database",
       "advertising_integration",
       "email_integration",
-      "analytics_integration"
+      "analytics_integration",
     ],
-    "system_type": "Application"
+    system_type: "Application",
   },
   {
-    "description": "Checkout application to collect payment details and submit orders for processing",
-    "fides_key": "checkout_app",
-    "name": "Example.com Checkout",
-    "privacy_declarations": [
+    description:
+      "Checkout application to collect payment details and submit orders for processing",
+    fides_key: "checkout_app",
+    name: "Example.com Checkout",
+    privacy_declarations: [
       {
-        "data_categories": [
+        data_categories: [
           "user.derived.identifiable.device.cookie_id",
           "user.provided.identifiable.contact.email",
-          "user.provided.identifiable.financial"
+          "user.provided.identifiable.financial",
         ],
-        "data_subjects": ["customer"],
-        "data_use": "provide.system",
-        "name": "eCommerce"
+        data_subjects: ["customer"],
+        data_use: "provide.system",
+        name: "eCommerce",
       },
       {
-        "data_categories": [
+        data_categories: [
           "user.derived.identifiable.device.cookie_id",
           "user.derived.identifiable.device.ip_address",
-          "user.derived.identifiable.location"
+          "user.derived.identifiable.location",
         ],
-        "data_subjects": ["customer"],
-        "data_use": "advertising.third_party",
-        "name": "Online Advertising"
+        data_subjects: ["customer"],
+        data_use: "advertising.third_party",
+        name: "Online Advertising",
       },
       {
-        "data_categories": ["user.derived.identifiable.device.cookie_id"],
-        "data_subjects": ["customer"],
-        "data_use": "improve.system",
-        "name": "Product Analytics"
-      }
+        data_categories: ["user.derived.identifiable.device.cookie_id"],
+        data_subjects: ["customer"],
+        data_use: "improve.system",
+        name: "Product Analytics",
+      },
     ],
-    "system_dependencies": [
+    system_dependencies: [
       "app_database",
       "orders_service",
       "advertising_integration",
       "analytics_integration",
-      "payments_integration"
+      "payments_integration",
     ],
-    "system_type": "Application"
+    system_type: "Application",
   },
   {
-    "description": "Backend service to process new customer orders, manage inventory, etc.",
-    "fides_key": "orders_service",
-    "name": "Orders Management",
-    "privacy_declarations": [
+    description:
+      "Backend service to process new customer orders, manage inventory, etc.",
+    fides_key: "orders_service",
+    name: "Orders Management",
+    privacy_declarations: [
       {
-        "data_categories": [
+        data_categories: [
           "user.derived.identifiable.device.cookie_id",
           "user.provided.identifiable.contact.email",
-          "user.provided.identifiable.financial"
+          "user.provided.identifiable.financial",
         ],
-        "data_subjects": ["customer"],
-        "data_use": "provide.system",
-        "name": "eCommerce"
+        data_subjects: ["customer"],
+        data_use: "provide.system",
+        name: "eCommerce",
       },
       {
-        "data_categories": ["user.derived.identifiable.device.cookie_id"],
-        "data_subjects": ["customer"],
-        "data_use": "improve.system",
-        "name": "Product Analytics"
-      }
+        data_categories: ["user.derived.identifiable.device.cookie_id"],
+        data_subjects: ["customer"],
+        data_use: "improve.system",
+        name: "Product Analytics",
+      },
     ],
-    "system_dependencies": [
+    system_dependencies: [
       "app_database",
       "analytics_integration",
-      "payments_integration"
+      "payments_integration",
     ],
-    "system_type": "Service"
+    system_type: "Service",
   },
   {
-    "description": "Backend service to process new customer orders, manage inventory, etc.",
-    "fides_key": "orders_service",
-    "name": "Orders Management",
-    "privacy_declarations": [
+    description:
+      "Backend service to process new customer orders, manage inventory, etc.",
+    fides_key: "orders_service",
+    name: "Orders Management",
+    privacy_declarations: [
       {
-        "data_categories": [
+        data_categories: [
           "user.derived.identifiable.device.cookie_id",
           "user.provided.identifiable.contact.email",
-          "user.provided.identifiable.financial"
+          "user.provided.identifiable.financial",
         ],
-        "data_subjects": ["customer"],
-        "data_use": "provide.system",
-        "name": "eCommerce"
+        data_subjects: ["customer"],
+        data_use: "provide.system",
+        name: "eCommerce",
       },
       {
-        "data_categories": ["user.derived.identifiable.device.cookie_id"],
-        "data_subjects": ["customer"],
-        "data_use": "improve.system",
-        "name": "Product Analytics"
-      }
+        data_categories: ["user.derived.identifiable.device.cookie_id"],
+        data_subjects: ["customer"],
+        data_use: "improve.system",
+        name: "Product Analytics",
+      },
     ],
-    "system_dependencies": [
+    system_dependencies: [
       "app_database",
       "analytics_integration",
-      "payments_integration"
+      "payments_integration",
     ],
-    "system_type": "Service"
+    system_type: "Service",
   },
   {
-    "description": "Primary database used to manage account, orders, product, payment data, etc.",
-    "fides_key": "app_database",
-    "name": "Example.com Database",
-    "privacy_declarations": [
+    description:
+      "Primary database used to manage account, orders, product, payment data, etc.",
+    fides_key: "app_database",
+    name: "Example.com Database",
+    privacy_declarations: [
       {
-        "data_categories": [
+        data_categories: [
           "user.derived.identifiable.device.cookie_id",
           "user.provided.identifiable.contact.email",
-          "user.provided.identifiable.financial"
+          "user.provided.identifiable.financial",
         ],
-        "data_subjects": ["customer"],
-        "data_use": "provide.system",
-        "name": "eCommerce"
-      }
+        data_subjects: ["customer"],
+        data_use: "provide.system",
+        name: "eCommerce",
+      },
     ],
-    "system_dependencies": [],
-    "system_type": "Database"
+    system_dependencies: [],
+    system_type: "Database",
   },
   {
-    "description": "Search engine used to index product data and provide search results and product recommendations",
-    "fides_key": "search_database",
-    "name": "Example.com Search Engine",
-    "privacy_declarations": [],
-    "system_dependencies": [],
-    "system_type": "Database"
+    description:
+      "Search engine used to index product data and provide search results and product recommendations",
+    fides_key: "search_database",
+    name: "Example.com Search Engine",
+    privacy_declarations: [],
+    system_dependencies: [],
+    system_type: "Database",
   },
   {
-    "description": "Payments processing integration for eCommerce orders",
-    "fides_key": "payments_integration",
-    "name": "Stripe",
-    "privacy_declarations": [
+    description: "Payments processing integration for eCommerce orders",
+    fides_key: "payments_integration",
+    name: "Stripe",
+    privacy_declarations: [
       {
-        "data_categories": [
+        data_categories: [
           "user.derived.identifiable.device.cookie_id",
           "user.provided.identifiable.contact.email",
-          "user.provided.identifiable.financial"
+          "user.provided.identifiable.financial",
         ],
-        "data_subjects": ["customer"],
-        "data_use": "provide.system",
-        "name": "eCommerce"
-      }
+        data_subjects: ["customer"],
+        data_use: "provide.system",
+        name: "eCommerce",
+      },
     ],
-    "system_dependencies": [],
-    "system_type": "Integration"
+    system_dependencies: [],
+    system_type: "Integration",
   },
   {
-    "description": "Email marketing integration to send emails, manage subscriber lists, etc.",
-    "fides_key": "email_integration",
-    "name": "Mailchimp",
-    "privacy_declarations": [
+    description:
+      "Email marketing integration to send emails, manage subscriber lists, etc.",
+    fides_key: "email_integration",
+    name: "Mailchimp",
+    privacy_declarations: [
       {
-        "data_categories": ["user.provided.identifiable.contact.email"],
-        "data_subjects": ["customer"],
-        "data_use": "advertising.first_party",
-        "name": "Email Marketing"
-      }
+        data_categories: ["user.provided.identifiable.contact.email"],
+        data_subjects: ["customer"],
+        data_use: "advertising.first_party",
+        name: "Email Marketing",
+      },
     ],
-    "system_dependencies": [],
-    "system_type": "Integration"
+    system_dependencies: [],
+    system_type: "Integration",
   },
   {
-    "description": "Advertising integration to collect audience data and display ads and retargeting campaigns to users",
-    "fides_key": "advertising_integration",
-    "name": "Google Ads",
-    "privacy_declarations": [
+    description:
+      "Advertising integration to collect audience data and display ads and retargeting campaigns to users",
+    fides_key: "advertising_integration",
+    name: "Google Ads",
+    privacy_declarations: [
       {
-        "data_categories": [
+        data_categories: [
           "user.derived.identifiable.device.cookie_id",
           "user.derived.identifiable.device.ip_address",
-          "user.derived.identifiable.location"
+          "user.derived.identifiable.location",
         ],
-        "data_subjects": ["customer"],
-        "data_use": "advertising.third_party",
-        "name": "Online Advertising"
-      }
+        data_subjects: ["customer"],
+        data_use: "advertising.third_party",
+        name: "Online Advertising",
+      },
     ],
-    "system_dependencies": [],
-    "system_type": "Integration"
+    system_dependencies: [],
+    system_type: "Integration",
   },
   {
-    "description": "Analytics integration to track website usage, conversion funnels, etc.",
-    "fides_key": "analytics_integration",
-    "name": "Google Analytics",
-    "privacy_declarations": [
+    description:
+      "Analytics integration to track website usage, conversion funnels, etc.",
+    fides_key: "analytics_integration",
+    name: "Google Analytics",
+    privacy_declarations: [
       {
-        "data_categories": ["user.derived.identifiable.device.cookie_id"],
-        "data_subjects": ["customer"],
-        "data_use": "improve.system",
-        "name": "Product Analytics"
-      }
+        data_categories: ["user.derived.identifiable.device.cookie_id"],
+        data_subjects: ["customer"],
+        data_use: "improve.system",
+        name: "Product Analytics",
+      },
     ],
-    "system_dependencies": [],
-    "system_type": "Integration"
+    system_dependencies: [],
+    system_type: "Integration",
   },
   {
-    "description": "Privacy platform to automate the collection and processing of data subject requests for GDPR, CCPA, etc.",
-    "fides_key": "privacy_app",
-    "name": "Ethyca",
-    "privacy_declarations": [
+    description:
+      "Privacy platform to automate the collection and processing of data subject requests for GDPR, CCPA, etc.",
+    fides_key: "privacy_app",
+    name: "Ethyca",
+    privacy_declarations: [
       {
-        "data_categories": [
+        data_categories: [
           "user.derived.identifiable.device.cookie_id",
           "user.provided.identifiable.contact.email",
           "user.derived.identifiable.device.ip_address",
-          "user.derived.identifiable.location"
+          "user.derived.identifiable.location",
         ],
-        "data_subjects": ["customer"],
-        "data_use": "provide.system.operations.support",
-        "name": "Privacy Requests"
-      }
+        data_subjects: ["customer"],
+        data_use: "provide.system.operations.support",
+        name: "Privacy Requests",
+      },
     ],
-    "system_dependencies": [
+    system_dependencies: [
       "app_database",
       "search_database",
       "payments_integration",
       "email_integration",
       "advertising_integration",
-      "analytics_integration"
+      "analytics_integration",
     ],
-    "system_type": "Application"
-  }
-]
+    system_type: "Application",
+  },
+];
+
+// TODO: Only export one set of systems -- not both. It's confusing. Probably keep this one, since it's better for performance in most cases we care about
+export const SYSTEMS = SAMPLE_DATA.reduce<Record<System["fides_key"], System>>(
+  (systems, system) => ({ ...systems, [system.fides_key]: system }),
+  {}
+);
