@@ -13,6 +13,7 @@ import {
   SystemType,
 } from "./constants/typings";
 import { ArcherContainer, ArcherElement } from "react-archer";
+import { stringToHexColor } from "./utils/stringToHexColor";
 
 // TODO: These are here for now, so we don't do this calculation on every render. If we want the app to be dynamic (i.e. you can add systems after the app has loaded), we would have to put this inside the `App` component itself, with an eye on performance implications
 // TODO: Do we need / want to sort our systems in each list in any special or more useful way?
@@ -113,6 +114,7 @@ function App() {
       {/* TODO: Do we need to consider dependencies not perfectly matching up right to left? At the very least, we probably want to make sure that we're not relying on the order in which our data is listed / the given system types are listed */}
       <ArcherContainer
         lineStyle="curve"
+        strokeWidth={3}
         startMarker
         endMarker={false}
         // TODO: Brief investigation into if we can do this better. And/or consider moving the cards up. They might move up on their own if we ever add in some elevation that adds shadows _and_ z-indexes
@@ -170,8 +172,6 @@ function App() {
                       }
 
                       // TODO: Handle when a system has no privacy declarations? It looks a bit weird to have an empty card. Maybe good enough to just put some "No privacy declarations" text in there...
-                      console.dir(system.fides_key, `system.fides_key`);
-                      // console.dir(system.system_dependencies, `system.system_dependencies`)
                       return (
                         <ArcherElement
                           key={system.fides_key}
@@ -180,6 +180,9 @@ function App() {
                             targetId: dep,
                             targetAnchor: "left",
                             sourceAnchor: "right",
+                            style: {
+                              strokeColor: stringToHexColor(dep),
+                            },
                             // TODO: Remove (for debugging purposes)
                             // label: (
                             //   <div style={{ color: "limegreen" }}>
