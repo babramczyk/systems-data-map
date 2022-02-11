@@ -40,7 +40,9 @@ export function MultiSelect<Option>({
         size={5}
         onChange={(e) =>
           onChange(
-            Array.from(e.target.selectedOptions).map(({ value }) => value)
+            Array.from(e.target.selectedOptions)
+              .map(({ value }) => value)
+              .filter(Boolean)
           )
         }
       >
