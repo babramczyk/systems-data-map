@@ -53,10 +53,11 @@ export function SystemCard({
               );
             })
         ) : (
-          <p><em>No data collected</em></p>
+          <p>
+            <em>No data collected</em>
+          </p>
         )}
       </ul>
-      {/* TODO: Show more data here, intelligently (maybe hidden at first) */}
     </div>
   );
 }
