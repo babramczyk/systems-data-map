@@ -184,12 +184,6 @@ function App() {
                             style: {
                               strokeColor: stringToHexColor(dep),
                             },
-                            // TODO: Remove (for debugging purposes)
-                            // label: (
-                            //   <div style={{ color: "limegreen" }}>
-                            //     {`Source: ${system.fides_key}; Dep: ${dep}`}
-                            //   </div>
-                            // ),
                           }))}
                         >
                           <div>
