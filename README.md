@@ -26,4 +26,4 @@
 - Add functionality to add, edit, and remove systems
 - When filtering by data categories or data uses, highlight the relevant data categories on the card and gray out (or remove) the irrelevant ones
 - Set up an actual parent relationship for inheritance for data uses and data categories. Right now, we're crudely just comparing the starts of strings. Which honestly isn't terrible, and is much simpler to implement. Still, that doesn't mean it makes me feel good when I see `startsWith` logic in the code... 😅
-- 
+- Consider splitting more components out. `App` is a bit too messy right now
