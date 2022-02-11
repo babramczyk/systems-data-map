@@ -4,8 +4,18 @@ import "./App.css";
 import { MultiSelect } from "./components/MultiSelect/MultiSelect";
 import { SystemCard } from "./components/SystemCard/SystemCard";
 import { DataCategoryKey, DATA_CATEGORIES } from "./constants/data-categories";
-import { DataUseKey, dataUsesByPrivacyKey, DATA_USES } from "./constants/data-uses";
-import { SAMPLE_DATA, System, SystemKey, SYSTEMS, SystemType } from "./constants/systems";
+import {
+  DataUseKey,
+  dataUsesByPrivacyKey,
+  DATA_USES,
+} from "./constants/data-uses";
+import {
+  SAMPLE_DATA,
+  System,
+  SystemKey,
+  SYSTEMS,
+  SystemType,
+} from "./constants/systems";
 import Logo from "./logo.svg";
 import { stringToHexColor } from "./utils/stringToHexColor";
 
@@ -27,12 +37,9 @@ const systemsByType = SAMPLE_DATA.reduce<
 const systemsByDataUse = SAMPLE_DATA.reduce<
   Record<SystemType, Record<SystemKey, System>>
 >((systemsByDataUse, system) => {
-  // TODO: Consider not making an extra variable for this. If we do this inline, would probably be more performant. But maybe at the cost of readability
-  const dataUses = system.privacy_declarations.map(({ data_use }) => data_use);
-
-  dataUses.forEach((dataUse) => {
-    systemsByDataUse[dataUse] = {
-      ...systemsByDataUse[dataUse],
+  system.privacy_declarations.forEach(({ data_use }) => {
+    systemsByDataUse[data_use] = {
+      ...systemsByDataUse[data_use],
       [system.fides_key]: system,
     };
   });
