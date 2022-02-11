@@ -174,7 +174,6 @@ function App() {
                   {Object.values(systemsByType[systemType])
                     .filter((system) => filteredSystems[system.fides_key])
                     .map((system) => (
-                      // TODO: Handle when a system has no privacy declarations? It looks a bit weird to have an empty card. Maybe good enough to just put some "No privacy declarations" text in there...
                       // TODO: Devise a system in which the end point of arrows don't overlap all at the same place. i.e. carve out a spot for each dependencies on the target box/system, so that arrow heads show up at different points on the box
                       <ArcherElement
                         key={system.fides_key}

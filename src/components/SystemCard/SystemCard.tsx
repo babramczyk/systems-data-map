@@ -30,27 +30,31 @@ export function SystemCard({
         <h3 className="system-card__heading">{system.name}</h3>
       </header>
       <ul>
-        {Object.keys(dataCategories)
-          // Sort "unhighlighted" data uses to the bottom
-          .sort((catA) => (dataCategories[catA] ? -1 : 1))
-          .map((category) => {
-            const isHighlighted = dataCategories[category];
-            return (
-              <li
-                key={category}
-                // TODO: At a certain point, bring in the classnames npm package?
-                className={
-                  isHighlighted
-                    ? "system-card__data-category--highlighted"
-                    : "system-card__data-category"
-                }
-              >
-                <p>{dataCategoriesByPrivacyKey[category].name}</p>
-                {/* TODO: Show this in some way. i.e. a tooltip that shows it on hover, or show this `code` block and make it a bit more subtle */}
-                {/* <code>{category.split(".").slice(-1)[0]}</code> */}
-              </li>
-            );
-          })}
+        {Object.keys(dataCategories).length ? (
+          Object.keys(dataCategories)
+            // Sort "unhighlighted" data uses to the bottom
+            .sort((catA) => (dataCategories[catA] ? -1 : 1))
+            .map((category) => {
+              const isHighlighted = dataCategories[category];
+              return (
+                <li
+                  key={category}
+                  // TODO: At a certain point, bring in the classnames npm package?
+                  className={
+                    isHighlighted
+                      ? "system-card__data-category--highlighted"
+                      : "system-card__data-category"
+                  }
+                >
+                  <p>{dataCategoriesByPrivacyKey[category].name}</p>
+                  {/* TODO: Show this in some way. i.e. a tooltip that shows it on hover, or show this `code` block and make it a bit more subtle */}
+                  {/* <code>{category.split(".").slice(-1)[0]}</code> */}
+                </li>
+              );
+            })
+        ) : (
+          <p><em>No data collected</em></p>
+        )}
       </ul>
       {/* TODO: Show more data here, intelligently (maybe hidden at first) */}
     </div>
