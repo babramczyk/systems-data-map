@@ -1,4 +1,5 @@
-import { DataCategory, DataCategoryKey } from "./typings";
+export type DataCategory = typeof DATA_CATEGORIES[number];
+export type DataCategoryKey = DataCategory["privacy_key"];
 
 export const DATA_CATEGORIES = [
   {

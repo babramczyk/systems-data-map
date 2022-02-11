@@ -1,5 +1,9 @@
-import { dataCategoriesByPrivacyKey } from "../../constants/data-categories";
-import { DataCategoryKey, DataUseKey, System } from "../../constants/typings";
+import {
+  dataCategoriesByPrivacyKey,
+  DataCategoryKey,
+} from "../../constants/data-categories";
+import { DataUseKey } from "../../constants/data-uses";
+import { System } from "../../constants/systems";
 import "./SystemCard.css";
 
 export function SystemCard({

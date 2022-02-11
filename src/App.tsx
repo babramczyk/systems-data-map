@@ -3,20 +3,13 @@ import { ArcherContainer, ArcherElement } from "react-archer";
 import "./App.css";
 import { MultiSelect } from "./components/MultiSelect/MultiSelect";
 import { SystemCard } from "./components/SystemCard/SystemCard";
-import { DATA_CATEGORIES } from "./constants/data-categories";
-import { dataUsesByPrivacyKey, DATA_USES } from "./constants/data-uses";
-import { SAMPLE_DATA, SYSTEMS } from "./constants/sample-data";
-import {
-  DataCategoryKey,
-  DataUseKey,
-  System,
-  SystemKey,
-  SystemType,
-} from "./constants/typings";
+import { DataCategoryKey, DATA_CATEGORIES } from "./constants/data-categories";
+import { DataUseKey, dataUsesByPrivacyKey, DATA_USES } from "./constants/data-uses";
+import { SAMPLE_DATA, System, SystemKey, SYSTEMS, SystemType } from "./constants/systems";
 import Logo from "./logo.svg";
 import { stringToHexColor } from "./utils/stringToHexColor";
 
-// TODO: These are here for now, so we don't do this calculation on every render. If we want the app to be dynamic (i.e. you can add systems after the app has loaded), we would have to put this inside the `App` component itself, with an eye on performance implications
+// NOTE: These are here for now, so we don't do this calculation on every render. If we want the app to be dynamic (i.e. you can add systems after the app has loaded), we would have to put this inside the `App` component itself, with an eye on performance implications
 // TODO: Do we need / want to sort our systems in each list in any special or more useful way?
 
 const systemsByType = SAMPLE_DATA.reduce<

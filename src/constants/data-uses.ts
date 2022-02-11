@@ -1,4 +1,5 @@
-import { DataUse } from "./typings";
+export type DataUse = typeof DATA_USES[number];
+export type DataUseKey = DataUse["privacy_key"];
 
 export const DATA_USES = [
   {

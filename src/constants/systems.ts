@@ -1,4 +1,6 @@
-import { System } from "./typings";
+export type System = typeof SAMPLE_DATA[number];
+export type SystemType = System["system_type"];
+export type SystemKey = System["fides_key"];
 
 export const SAMPLE_DATA = [
   {
