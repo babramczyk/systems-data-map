@@ -24,15 +24,18 @@ import { stringToHexColor } from "./utils/stringToHexColor";
 
 const systemsByType = SAMPLE_DATA.reduce<
   Record<SystemType, Record<SystemKey, System>>
->((systemsByType, system) => {
-  return {
+>(
+  (systemsByType, system) => ({
+    // Preserve everything that's in the map to begin with...
     ...systemsByType,
     [system.system_type]: {
       ...systemsByType[system.system_type],
+      // ...and then add this current system where we want it
       [system.fides_key]: system,
     },
-  };
-}, {});
+  }),
+  {}
+);
 
 const systemsByDataUse = SAMPLE_DATA.reduce<
   Record<SystemType, Record<SystemKey, System>>
