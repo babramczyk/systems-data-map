@@ -174,7 +174,6 @@ function App() {
                   {Object.values(systemsByType[systemType])
                     .filter((system) => filteredSystems[system.fides_key])
                     .map((system) => (
-                      // TODO: Devise a system in which the end point of arrows don't overlap all at the same place. i.e. carve out a spot for each dependencies on the target box/system, so that arrow heads show up at different points on the box
                       <ArcherElement
                         key={system.fides_key}
                         id={system.fides_key}
