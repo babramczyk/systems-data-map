@@ -13,3 +13,6 @@
 
 - More documentation (i.e. components and their props, helper functions, constants, etc.)
 - I would definitely get more serious about my CSS usage. i.e. collect constants for sizes, colors, etc., use px or rems consistently, and better yet, pull in Tailwind 😜
+- Find a much more useful and visually appealing way to show our dependency arrows. Right now, it's pretty messy, and hard to parse exactly what's going on. For example...
+  - Define an actual color palette for the colors of the arrows (right now it's just a hex based on a hash of the `fides_key` of a system)
+  - Make sure that arrows don't overlap at their endpoint (as is, it's hard to tell which arrows actually make it to a system's card)
