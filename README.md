@@ -12,3 +12,4 @@
 ## If I had more time...
 
 - More documentation (i.e. components and their props, helper functions, constants, etc.)
+- I would definitely get more serious about my CSS usage. i.e. collect constants for sizes, colors, etc., use px or rems consistently, and better yet, pull in Tailwind 😜

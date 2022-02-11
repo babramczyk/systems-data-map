@@ -1,4 +1,27 @@
-.empty-filter-option {
-  color: gray;
+.multi-select {
+  display: flex;
+  flex-direction: column;
+}
+
+.multi-select__label {
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.multi-select__select {
+  width: 16rem;
+  overflow-x: auto;
+  background: var(--primary);
+  color: white;
+  border-radius: 1rem;
+}
+
+.multi-select__option {
+  padding: 0.5rem 1rem;
+}
+
+.multi-select__option--empty {
+  color: black;
   font-style: italic;
 }

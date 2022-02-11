@@ -14,6 +14,7 @@ import {
 } from "./constants/typings";
 import { ArcherContainer, ArcherElement } from "react-archer";
 import { stringToHexColor } from "./utils/stringToHexColor";
+import Logo from "./logo.svg";
 
 // TODO: These are here for now, so we don't do this calculation on every render. If we want the app to be dynamic (i.e. you can add systems after the app has loaded), we would have to put this inside the `App` component itself, with an eye on performance implications
 // TODO: Do we need / want to sort our systems in each list in any special or more useful way?
@@ -58,27 +59,7 @@ function App() {
   return (
     <div className="App">
       <header className="filters-and-layout">
-        <MultiSelect
-          options={DATA_USES}
-          onChange={(dataUses) => setDataUseFilters(dataUses)}
-          getOptionValue={({ privacy_key }) => privacy_key}
-          getOptionDisplayValue={({ name }) => name}
-          getOptionDescription={({ description }) => description}
-          id="data-use-filter"
-          label="Filter by data uses"
-        />
-        {/* TODO: You're better than this... */}
-        <br />
-        <MultiSelect
-          options={DATA_CATEGORIES}
-          onChange={(dataCategories) => setDataCategoryFilters(dataCategories)}
-          getOptionValue={({ privacy_key }) => privacy_key}
-          getOptionDisplayValue={({ name }) => name}
-          getOptionDescription={({ description }) => description}
-          id="data-category-filter"
-          label="Filter by data categories"
-        />
-
+        <img src={Logo} alt="" className="logo" />
         <fieldset>
           <legend>Layout mode</legend>
           <label>
@@ -109,6 +90,26 @@ function App() {
             Group by data use
           </label>
         </fieldset>
+        <MultiSelect
+          options={DATA_USES}
+          onChange={(dataUses) => setDataUseFilters(dataUses)}
+          getOptionValue={({ privacy_key }) => privacy_key}
+          getOptionDisplayValue={({ name }) => name}
+          getOptionDescription={({ description }) => description}
+          id="data-use-filter"
+          label="Filter by data uses"
+        />
+        {/* TODO: You're better than this... */}
+        <br />
+        <MultiSelect
+          options={DATA_CATEGORIES}
+          onChange={(dataCategories) => setDataCategoryFilters(dataCategories)}
+          getOptionValue={({ privacy_key }) => privacy_key}
+          getOptionDisplayValue={({ name }) => name}
+          getOptionDescription={({ description }) => description}
+          id="data-category-filter"
+          label="Filter by data categories"
+        />
       </header>
 
       {/* TODO: Do we need to consider dependencies not perfectly matching up right to left? At the very least, we probably want to make sure that we're not relying on the order in which our data is listed / the given system types are listed */}

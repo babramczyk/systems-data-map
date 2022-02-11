@@ -1,9 +1,23 @@
 .App {
-  padding: 4rem;
+  padding: 2rem;
+}
+
+.logo {
+  padding: 1rem;
+}
+
+.filters-and-layout {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  border-bottom: 4px dashed var(--primary);
+  width: fit-content;
+  padding: 2rem 1rem;
 }
 
 .systems-grid {
   display: flex;
+  padding: 2rem;
   gap: 6rem;
   overflow-x: auto;
 }
@@ -17,11 +31,10 @@
 }
 
 .system-list__heading {
-  margin-bottom: .5rem;
+  margin-bottom: 0.5rem;
 }
 
 .system-list__subheading {
-  /* TODO: Make a defined color palette and file for it. CSS variables for now, maybe a full-fledged CSS system later (i.e. Tailwind) */
   color: hsl(0, 0%, 50%);
   font-style: italic;
   margin-top: 0;
