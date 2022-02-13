@@ -5,6 +5,8 @@
   width: 16rem;
   overflow: hidden;
   background: hsla(0, 0%, 100%, 85%);
+  /* TODO: Refactor this. This is currently just to keep the cursor the same when hovering a system, but we should be able to do that without disabling the ability to select text in the card, which is what we're doing here */
+  user-select: none;
 }
 
 .system-card__deemphasized {
