@@ -43,6 +43,8 @@ export function SystemCard({
             .sort((catA) => (dataCategories[catA] ? -1 : 1))
             .map((category) => {
               const isHighlighted = dataCategories[category];
+              // TODO: This highlighted prop and logic was for when I used to show the unhighlighted cards. But that needed more work, and this was an easy way to make the "Data Use" layout mode more useful. This highlighting styling should either be iterated on, or removed in the code
+              if (!isHighlighted) return null;
               return (
                 <li
                   key={category}
