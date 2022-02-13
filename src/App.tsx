@@ -192,7 +192,9 @@ function App() {
                               strokeColor:
                                 system.fides_key === highlightedSystem ||
                                 dep === highlightedSystem
+                                  // If it's highlighted, show the "full" color
                                   ? stringToHexColor(dep)
+                                  // Else, show a very muted one (i.e. with very low opacity)
                                   : `${stringToHexColor(dep)}22`,
                             },
                           }))}
