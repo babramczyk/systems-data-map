@@ -30,3 +30,4 @@
 - Consider splitting more components out. `App` is a bit too messy right now
 - Accessibility. Right now, there's no way to do any of the interactive parts I've added to the graph (i.e. hovering a card with the mouse)
 - High level `App` integration tests, using React Testing Library. I haven't given this too much thought, but it's not going to be trivial at this point in the app, since a lot of what we'd want to test for is visual / dependent on styling and SVGs. At the very least, we could test things like filtering logic
+- Make the filter bar prettier. It's extremly ugly
