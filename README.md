@@ -20,7 +20,6 @@
   - Define an actual color palette for the colors of the arrows (right now it's just a hex based on a hash of the `fides_key` of a system)
   - Make sure that arrows don't overlap at their endpoint (as is, it's hard to tell which arrows actually make it to a system's card)
 - On hovering a system card, show a more detailed card of the system, that shows all information. Or a modal on click
-- On hovering a system card, highlight any system dependency arrows that relate to it. Or just hide all of the other ones
 - On a system card, do some kind of visual grouping of data categories with respect to their entire privacy declation. i.e. it would be nice to see the name, data subjects, and data uses for a given data category we're showing, to give context on why that data is being used. Especially since some of them might be duplicated, and that's not shown right now
   - Note: This might be best saved for the modal above, if the card becomes too busy
   - There's a lot of ways to go about this and this is super not fleshed out right now 😄
