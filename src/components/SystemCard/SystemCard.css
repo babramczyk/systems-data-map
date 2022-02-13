@@ -7,6 +7,10 @@
   background: hsla(0, 0%, 100%, 85%);
 }
 
+.system-card__deemphasized {
+  opacity: .1;
+}
+
 .system-card__header {
   text-align: center;
   background: hsla(0, 0%, 0%, 75%);

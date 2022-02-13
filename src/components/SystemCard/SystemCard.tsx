@@ -9,9 +9,11 @@ import "./SystemCard.css";
 export function SystemCard({
   system,
   highlightedDataUse,
+  deemphasized,
 }: {
   system: System;
   highlightedDataUse?: DataUseKey;
+  deemphasized?: boolean;
 }) {
   const dataCategories = system.privacy_declarations.reduce<
     Record<DataCategoryKey, boolean>
@@ -25,7 +27,12 @@ export function SystemCard({
   }, {});
 
   return (
-    <div className="system-card" key={system.fides_key}>
+    <div
+      className={`system-card ${
+        deemphasized ? "system-card__deemphasized" : ""
+      }`}
+      key={system.fides_key}
+    >
       <header className="system-card__header">
         <h3 className="system-card__heading">{system.name}</h3>
       </header>

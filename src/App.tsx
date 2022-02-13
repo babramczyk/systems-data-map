@@ -169,7 +169,7 @@ function App() {
         startMarker
         endMarker={false}
         // TODO: Brief investigation into if we can do this better. And/or consider moving the cards up. They might move up on their own if we ever add in some elevation that adds shadows _and_ z-indexes
-        svgContainerStyle={{ zIndex: -1 }}
+        // svgContainerStyle={{ zIndex: -1 }}
       >
         <div className="systems-grid">
           {layoutMode === "bySystemType"
@@ -192,10 +192,10 @@ function App() {
                               strokeColor:
                                 system.fides_key === highlightedSystem ||
                                 dep === highlightedSystem
-                                  // If it's highlighted, show the "full" color
-                                  ? stringToHexColor(dep)
-                                  // Else, show a very muted one (i.e. with very low opacity)
-                                  : `${stringToHexColor(dep)}22`,
+                                  ? // If it's highlighted, show the "full" color
+                                    stringToHexColor(dep)
+                                  : // Else, show a very muted one (i.e. with very low opacity)
+                                    `${stringToHexColor(dep)}22`,
                             },
                           }))}
                       >
@@ -205,7 +205,22 @@ function App() {
                           }
                           onMouseLeave={() => setHighlightedSystem(null)}
                         >
-                          <SystemCard system={system} />
+                          <SystemCard
+                            system={system}
+                            deemphasized={Boolean(
+                              highlightedSystem
+                                ? system.fides_key !== highlightedSystem &&
+                                    !SYSTEMS[
+                                      highlightedSystem
+                                    ].system_dependencies.includes(
+                                      system.fides_key
+                                    ) &&
+                                    !system.system_dependencies.includes(
+                                      SYSTEMS[highlightedSystem].fides_key
+                                    )
+                                : false
+                            )}
+                          />
                         </div>
                       </ArcherElement>
                     ))}
