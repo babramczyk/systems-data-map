@@ -16,5 +16,6 @@ code {
   /* Colors */
   /* TODO: Move these to a separate `colors.css` file */
   --primary: #0861ce;
+  --primary-light: #0861ce55;
   --secondary: #6ad495;
 }

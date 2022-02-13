@@ -12,8 +12,8 @@
 .multi-select__select {
   width: 16rem;
   overflow-x: auto;
-  background: var(--primary);
-  color: white;
+  background: var(--primary-light);
+  /* color: white; */
   border-radius: 1rem;
 }
 
@@ -22,6 +22,6 @@
 }
 
 .multi-select__option--empty {
-  color: black;
+  color: #333;
   font-style: italic;
 }
