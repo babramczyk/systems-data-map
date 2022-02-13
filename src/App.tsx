@@ -166,8 +166,7 @@ function App() {
       >
         <div className="systems-grid">
           {layoutMode === "bySystemType"
-            ? /* TODO: Clarify if the types should be shown in any particular order */
-              Object.keys(systemsByType).map((systemType) => (
+            ? Object.keys(systemsByType).map((systemType) => (
                 <div className="system-list" key={systemType}>
                   <h2>{systemType}</h2>
                   {Object.values(systemsByType[systemType])
