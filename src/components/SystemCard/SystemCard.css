@@ -2,12 +2,12 @@
   border: 1px solid black;
   border-radius: 1rem;
   margin-bottom: 1rem;
-  width: 16rem;
+  width: 18rem;
   overflow: hidden;
   background: hsla(0, 0%, 100%, 85%);
   /* TODO: Refactor this. This is currently just to keep the cursor the same when hovering a system, but we should be able to do that without disabling the ability to select text in the card, which is what we're doing here */
   user-select: none;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.19), 0 6px 6px rgba(0,0,0,0.23);
+  box-shadow: 0 10px 20px rgba(0, 0, 0, 0.19), 0 6px 6px rgba(0, 0, 0, 0.23);
   transition: all 0.2s;
 }
 
@@ -30,6 +30,19 @@
   margin: 0;
 }
 
+.system-card__category-list {
+  padding-right: 1rem;
+}
+
 .system-card__data-category:not(.system-card__data-category--highlighted) {
   color: hsl(0, 0%, 50%);
+}
+
+.system-card__category-code {
+  margin-left: 0.75rem;
+  padding: 0.25rem;
+  border-radius: 0.5rem;
+  background: hsl(0, 0%, 50%);
+  color: white;
+  font-size: 14px;
 }

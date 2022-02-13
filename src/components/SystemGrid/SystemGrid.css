@@ -29,3 +29,7 @@ path {
   font-style: italic;
   margin-top: 0;
 }
+
+.system-card-wrapper {
+  width: fit-content;
+}

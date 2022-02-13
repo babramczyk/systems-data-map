@@ -138,6 +138,7 @@ export function SystemGrid({
                         }))}
                     >
                       <div
+                        className="system-card-wrapper"
                         onMouseOver={() =>
                           setHighlightedSystem(system.fides_key)
                         }

@@ -36,7 +36,7 @@ export function SystemCard({
       <header className="system-card__header">
         <h3 className="system-card__heading">{system.name}</h3>
       </header>
-      <ul>
+      <ul className="system-card__category-list">
         {Object.keys(dataCategories).length ? (
           Object.keys(dataCategories)
             // Sort "unhighlighted" data uses to the bottom
@@ -47,15 +47,23 @@ export function SystemCard({
                 <li
                   key={category}
                   // TODO: At a certain point, bring in the classnames npm package?
-                  className={
+                  className={`system-card__data-category ${
                     isHighlighted
                       ? "system-card__data-category--highlighted"
-                      : "system-card__data-category"
-                  }
+                      : ""
+                  }`}
                 >
-                  <p>{dataCategoriesByPrivacyKey[category].name}</p>
+                  <p>
+                    {dataCategoriesByPrivacyKey[category].name}
+                    <code
+                      className="system-card__category-code"
+                      // TODO: Use a better tooltip than `title` here, i.e. a Reach UI tooltip
+                      title={category}
+                    >
+                      {category.split(".").slice(-1)[0]}
+                    </code>
+                  </p>
                   {/* TODO: Show this in some way. i.e. a tooltip that shows it on hover, or show this `code` block and make it a bit more subtle */}
-                  {/* <code>{category.split(".").slice(-1)[0]}</code> */}
                 </li>
               );
             })
