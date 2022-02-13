@@ -107,7 +107,7 @@ export function SystemGrid({
       strokeWidth={3}
       startMarker
       endMarker={false}
-      svgContainerStyle={{ transition: "stroke 1s" }}
+      svgContainerStyle={{ transition: "stroke 1s", zIndex: -1 }}
     >
       <div className="system-grid">
         {layoutMode === "bySystemType"
@@ -130,8 +130,8 @@ export function SystemGrid({
                             strokeColor:
                               system.fides_key === highlightedSystem ||
                               dep === highlightedSystem
-                                ? // If it's highlighted, show the "full" color (with a little transparency, so we can still read text behind it)
-                                  `${stringToHexColor(dep)}aa`
+                                ? // If it's highlighted, show the "full" color
+                                  `${stringToHexColor(dep)}`
                                 : // Else, show a very muted one (i.e. with very low opacity)
                                   `${stringToHexColor(dep)}22`,
                           },
