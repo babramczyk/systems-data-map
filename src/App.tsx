@@ -102,6 +102,10 @@ function App() {
     setFilteredSystems(filteredSystems);
   }, [dataUseFilters, dataCategoryFilters]);
 
+  const [highlightedSystem, setHighlightedSystem] = useState<SystemKey | null>(
+    null
+  );
+
   return (
     <div className="App">
       <header className="filters-and-layout">
@@ -129,6 +133,7 @@ function App() {
               onChange={(e) => {
                 if (e.target.checked) {
                   setLayoutMode("byDataUse");
+                  setHighlightedSystem(null);
                 }
               }}
               name="layout-mode"
@@ -184,11 +189,20 @@ function App() {
                             targetAnchor: "left",
                             sourceAnchor: "right",
                             style: {
-                              strokeColor: stringToHexColor(dep),
+                              strokeColor:
+                                system.fides_key === highlightedSystem ||
+                                dep === highlightedSystem
+                                  ? stringToHexColor(dep)
+                                  : `${stringToHexColor(dep)}22`,
                             },
                           }))}
                       >
-                        <div>
+                        <div
+                          onMouseOver={() =>
+                            setHighlightedSystem(system.fides_key)
+                          }
+                          onMouseLeave={() => setHighlightedSystem(null)}
+                        >
                           <SystemCard system={system} />
                         </div>
                       </ArcherElement>
