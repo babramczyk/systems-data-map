@@ -7,17 +7,18 @@
   background: hsla(0, 0%, 100%, 85%);
   /* TODO: Refactor this. This is currently just to keep the cursor the same when hovering a system, but we should be able to do that without disabling the ability to select text in the card, which is what we're doing here */
   user-select: none;
+  transition: opacity 0.2s;
 }
 
 .system-card__deemphasized {
-  opacity: .1;
+  opacity: 0.1;
 }
 
 .system-card__header {
   text-align: center;
   background: hsla(0, 0%, 0%, 75%);
   color: white;
-  padding: 1rem .5rem;
+  padding: 1rem 0.5rem;
 }
 
 .system-card__heading {

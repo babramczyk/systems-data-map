@@ -1,0 +1,31 @@
+.system-grid {
+  display: flex;
+  padding: 2rem;
+  gap: 6rem;
+  overflow-x: auto;
+}
+
+/* TODO: Come up with a more robust way to target these elements. This is extremely flakey (but works for now) */
+/* The arrows drawn by Archer */
+path {
+  transition: stroke .2s;
+}
+
+.system-list {
+  padding: 0.5rem;
+  width: 16rem;
+}
+
+.system-list__header {
+  margin-bottom: 2rem;
+}
+
+.system-list__heading {
+  margin-bottom: 0.5rem;
+}
+
+.system-list__subheading {
+  color: hsl(0, 0%, 50%);
+  font-style: italic;
+  margin-top: 0;
+}

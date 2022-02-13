@@ -35,29 +35,3 @@
 .layout-mode__input {
   margin-right: .75rem;
 }
-
-.systems-grid {
-  display: flex;
-  padding: 2rem;
-  gap: 6rem;
-  overflow-x: auto;
-}
-
-.system-list {
-  padding: 0.5rem;
-  width: 16rem;
-}
-
-.system-list__header {
-  margin-bottom: 2rem;
-}
-
-.system-list__heading {
-  margin-bottom: 0.5rem;
-}
-
-.system-list__subheading {
-  color: hsl(0, 0%, 50%);
-  font-style: italic;
-  margin-top: 0;
-}

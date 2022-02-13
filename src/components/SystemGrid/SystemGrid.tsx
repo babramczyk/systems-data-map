@@ -107,10 +107,9 @@ export function SystemGrid({
       strokeWidth={3}
       startMarker
       endMarker={false}
-      // TODO: Brief investigation into if we can do this better. And/or consider moving the cards up. They might move up on their own if we ever add in some elevation that adds shadows _and_ z-indexes
-      // svgContainerStyle={{ zIndex: -1 }}
+      svgContainerStyle={{ transition: "stroke 1s" }}
     >
-      <div className="systems-grid">
+      <div className="system-grid">
         {layoutMode === "bySystemType"
           ? Object.keys(systemsByType).map((systemType) => (
               <div className="system-list" key={systemType}>
