@@ -30,6 +30,8 @@
 .layout-mode__title {
   font-size: 20px;
   font-weight: bold;
+  position: relative;
+  top: -1.5rem;
 }
 
 .layout-mode__input {
