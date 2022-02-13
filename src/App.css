@@ -9,10 +9,31 @@
 .filters-and-layout {
   display: flex;
   align-items: center;
-  gap: 2rem;
+  gap: 4rem;
   border-bottom: 4px dashed var(--primary);
   width: fit-content;
   padding: 2rem 1rem;
+}
+
+.layout-mode {
+  background: var(--primary-light);
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  padding: 2rem;
+  gap: 1rem;
+  align-self: flex-end;
+  margin-left: 2rem;
+  margin-right: 4rem;
+}
+
+.layout-mode__title {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.layout-mode__input {
+  margin-right: .75rem;
 }
 
 .systems-grid {

@@ -106,8 +106,8 @@ function App() {
     <div className="App">
       <header className="filters-and-layout">
         <img src={Logo} alt="" className="logo" />
-        <fieldset>
-          <legend>Layout mode</legend>
+        <fieldset className="layout-mode">
+          <legend className="layout-mode__title">Layout mode</legend>
           <label>
             <input
               type="radio"
@@ -119,8 +119,9 @@ function App() {
                   setLayoutMode("bySystemType");
                 }
               }}
+              className="layout-mode__input"
             />
-            Group by system type
+            System type grid
           </label>
           <label>
             <input
@@ -132,6 +133,7 @@ function App() {
               }}
               name="layout-mode"
               id="by-data-use"
+              className="layout-mode__input"
             />
             Group by data use
           </label>
