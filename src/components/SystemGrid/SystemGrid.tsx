@@ -130,8 +130,8 @@ export function SystemGrid({
                             strokeColor:
                               system.fides_key === highlightedSystem ||
                               dep === highlightedSystem
-                                ? // If it's highlighted, show the "full" color
-                                  stringToHexColor(dep)
+                                ? // If it's highlighted, show the "full" color (with a little transparency, so we can still read text behind it)
+                                  `${stringToHexColor(dep)}aa`
                                 : // Else, show a very muted one (i.e. with very low opacity)
                                   `${stringToHexColor(dep)}22`,
                           },
