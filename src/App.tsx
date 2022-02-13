@@ -156,7 +156,6 @@ function App() {
         />
       </header>
 
-      {/* TODO: Do we need to consider dependencies not perfectly matching up right to left? At the very least, we probably want to make sure that we're not relying on the order in which our data is listed / the given system types are listed */}
       <ArcherContainer
         lineStyle="curve"
         strokeWidth={3}
