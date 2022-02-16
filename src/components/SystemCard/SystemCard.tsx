@@ -38,35 +38,38 @@ export function SystemCard({
       </header>
       <ul className="system-card__category-list">
         {Object.keys(dataCategories).length ? (
-          Object.keys(dataCategories)
-            // Sort "unhighlighted" data uses to the bottom
-            .sort((catA) => (dataCategories[catA] ? -1 : 1))
-            .map((category) => {
-              const isHighlighted = dataCategories[category];
+          system.privacy_declarations
+            // // Sort "unhighlighted" data uses to the bottom
+            // .sort((catA) => (dataCategories[catA] ? -1 : 1))
+            .map((declaration) => {
+              // const isHighlighted = dataCategories[dep];
               // TODO: This highlighted prop and logic was for when I used to show the unhighlighted cards. But that needed more work, and this was an easy way to make the "Data Use" layout mode more useful. This highlighting styling should either be iterated on, or removed in the code
-              if (!isHighlighted) return null;
+              // if (!isHighlighted) return null;
               return (
-                <li
-                  key={category}
-                  // TODO: At a certain point, bring in the classnames npm package?
-                  className={`system-card__data-category ${
-                    isHighlighted
-                      ? "system-card__data-category--highlighted"
-                      : ""
-                  }`}
-                >
-                  <p>
-                    {dataCategoriesByPrivacyKey[category].name}
-                    <code
-                      className="system-card__category-code"
-                      // TODO: Use a better tooltip than `title` here, i.e. a Reach UI tooltip
-                      title={category}
-                    >
-                      {category.split(".").slice(-1)[0]}
-                    </code>
-                  </p>
-                  {/* TODO: Show this in some way. i.e. a tooltip that shows it on hover, or show this `code` block and make it a bit more subtle */}
-                </li>
+                <>
+                  <h4>{declaration.name}</h4>
+                  {declaration.data_categories.map((cat) => {
+                    return (
+                      <li
+                        key={cat}
+                        // TODO: At a certain point, bring in the classnames npm package?
+                        className={`system-card__data-category`}
+                      >
+                        <p>
+                          {dataCategoriesByPrivacyKey[cat].name}
+                          <code
+                            className="system-card__category-code"
+                            // TODO: Use a better tooltip than `title` here, i.e. a Reach UI tooltip
+                            title={cat}
+                          >
+                            {cat.split(".").slice(-1)[0]}
+                          </code>
+                        </p>
+                        {/* TODO: Show this in some way. i.e. a tooltip that shows it on hover, or show this `code` block and make it a bit more subtle */}
+                      </li>
+                    );
+                  })}
+                </>
               );
             })
         ) : (
